@@ -73,3 +73,51 @@ function Add(){
     let add = new Addhour (evento.value, horas.value, tipo.value, data.value)
     document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
 }
+
+function criaTag(elemento) {
+    return document.createElement(elemento)
+    }
+    
+    let titulo = document.querySelector("section h1");
+    titulo.textContent = "A DOS ALUNOS";
+    
+    let tabela = document.getElementById("tabela");
+    
+    let thead = criaTag("thead");
+    let tbody = criaTag("tbody");
+    let tfoot = criaTag("tfoot");
+    
+    let indicesTabela = ["Nome do Aluno", "Nota 1", "Nota 2", "Nota 3", "Nota 4", "Media", "Status"];
+    let linhaHead = criaTag("tr");
+    
+    function criaCelula(tag, text) {
+        tag = criaTag(tag);
+        tag.textContent = text;
+        return tag;
+    }
+    
+    for(j = 0; j < indicesTabela.length; j++) {
+        let th = criaCelula("th", indicesTabela [j]);
+        linhaHead.appendChild(th);
+    }
+    thead.appendChild(linhaHead);
+    
+    
+    for(j = 0; j < linhasTabela.length; j++) {
+        let linhaBody = criaTag("tr");
+    
+        for(i = 0; i < linhasTabela[j].length; i++) {
+            cel = criaCelula("td", linhasTabela[j][i]);
+            linhaBody.appendChild(cel); 
+        }
+        tbody.appendChild(linhaBody);
+    }
+    let linhaFoot = criaTag("tr");
+    let celulaFoot = criaCelula("td","Colégio Floripa");
+    celulaFoot.setAttribute("colspan",7);
+    linhaFoot.appendChild(celulaFoot);
+    tfoot.appendChild(linhaFoot);
+    
+    tabela.appendChild(thead);
+    tabela.appendChild(tbody);
+    tabela.appendChild(tfoot);
