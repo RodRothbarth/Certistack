@@ -1,10 +1,15 @@
+$(document).ready(function(){
+    $('.CPF').mask('000.000.000-00');
+    $('.numCelular').mask('(99) 99999-9999');
+  });
+
 let dataBase = [];
 
-function User (name, cpf, email, dna, interrest, pswd, university, lattes){ //função construtora para o cadastro.
+function User (name, cpf, email, dataNasc, interrest, pswd, university, lattes){ //função construtora para o cadastro.
     this.nome = name;
     this.cpf = cpf;
     this.email = email;
-    this.dna = dna;
+    this.dataNasc = dataNasc;
     this.interesse = interrest;
     this.pswd = pswd;
     this.university = university;
@@ -12,21 +17,22 @@ function User (name, cpf, email, dna, interrest, pswd, university, lattes){ //fu
 };
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
+    // ADICIONAR TELEFONE CELULAR
     let name = document.getElementById('name');
     let cpf = document.getElementById('cpf');
     let email = document.getElementById('email');
-    let dna = document.getElementById('dna');
+    let dataNasc = document.getElementById('dataNasc');
     let interrest = document.getElementById('interrest');
     let pswd = document.getElementById('pswd');
     let college = document.getElementById('college');
     let lattes = document.getElementById('lattes');
-    let user = new User(name.value, cpf.value, email.value, dna.value, interrest.value, pswd.value, college.value, lattes.value);
+    let user = new User(name.value, cpf.value, email.value, dataNasc.value, interrest.value, pswd.value, college.value, lattes.value);
     dataBase.push(user);
 }
 
 function validation(){
 //validação de login e senha para entrar na area de perfil.
-    let usern = document.getElementById("usuario");
+    let usern = document.getElementById("cpf");
     let pssw = document.getElementById("senha");
     for (i = 0; i <= dataBase.length; i++){
         if(i == dataBase.length){
@@ -48,7 +54,7 @@ function validation(){
 
 function Exit(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.remove("user");
-    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
+    location.href="home.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
 function AddHour(event, hour, type, date){
