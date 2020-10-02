@@ -73,3 +73,6 @@ function Add(){
     let add = new Addhour (evento.value, horas.value, tipo.value, data.value)
     document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
 }
+
+
+eu estou mudando o arquivo
