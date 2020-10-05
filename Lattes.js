@@ -1,9 +1,10 @@
-$(document).ready(function(){
-    $('.CPF').mask('000.000.000-00');
-    $('.numCelular').mask('(99) 99999-9999');
-  });
+// $(document).ready(function(){
+//     $('.CPF').mask('000.000.000-00');
+//     $('.numCelular').mask('(99) 99999-9999');
+//   });
 
 let dataBase = [];
+let dataCerti = []; 
 
 function User (name, cpf, email, dataNasc, interrest, pswd, university, lattes){ //função construtora para o cadastro.
     this.nome = name;
@@ -57,22 +58,20 @@ function Exit(){ // botão para sair do perfil validado para troca de perfil ou 
     location.href="home.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
-function AddHour(event, hour, type, date){
+function AddHour(event, beginEvent,  endEvent, hour,type ){
     this.evento = event;
-    this.data = date;
+    this.beginEvent = beginEvent;
+    this.endEvent = endEvent;
     this.horas = hour;
     this.tipo = type; //tem 3 tipos: Oficinas, cursos extracurriculares e eventos academicos.
 }
 
 function Add(){
-    let evento = document.getElementById('titulo');
-    let data = document.getElementById('data');
-    let horas = document.getElementById('horas');
-    let tipo = document.getElementById("tipo")
-
-    let add = new Addhour (evento.value, horas.value, tipo.value, data.value)
-    document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
+    let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
+        return element.value;});
+        alert(certificado); 
+    let add = new AddHour (certificado[0], certificado[1], certificado[2], certificado[3], certificado[4])
+    dataCerti.push(add)
+    localStorage.setItem("certificate", JSON.stringify(dataCerti))
+    // document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
 }
-
-
-eu estou mudando o arquivo
