@@ -23,10 +23,9 @@ function Cadastrar(){ //sistema para cadastrar um novo usuario.
     dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
     localStorage.setItem("user", JSON.stringify(dataBase));
     alert("Cadastro Realizado com Sucesso!");
-
 }
 
-function validation(){
+function Validation(){
 //validação de login e senha para entrar na area de perfil.
     let usern = document.getElementById("cpf");
     let pssw = document.getElementById("senha");
@@ -49,8 +48,8 @@ function validation(){
 }
 
 function Exit(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
-    localStorage.remove("online");
-    location.href="home.html"; //ou window.open("home.html") para abrir em uma nova aba
+    localStorage.removeItem("online");
+    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
 function AddHour(event, beginEvent, endEvent, hour, type){
@@ -62,11 +61,24 @@ function AddHour(event, beginEvent, endEvent, hour, type){
 }
 
 function Add(){
+
     let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
         return element.value;});
+        let day1 = new Date(document.getElementById("day1").value.split('-').join('/')) 
+        let dataFormatada = ("0" + day1.getDate()).substr(-2) + "/" 
+        + ("0" + (day1.getMonth() + 1)).substr(-2) + "/" + day1.getFullYear();
+        let day2 = new Date(document.getElementById("day2").value.split('-').join('/'))
+        let dayFormat = ("0" + day2.getDate()).substr(-2) + "/" 
+        + ("0" + (day2.getMonth() + 1)).substr(-2) + "/" + day2.getFullYear(); //uso para formatar a data em pt-br
          
-    dataCerti.push(new AddHour (certificado[0], certificado[1], certificado[2], certificado[3], certificado[4]))
+    dataCerti.push(new AddHour (certificado[0], dataFormatada, dayFormat, certificado[1], certificado[2]))
     localStorage.setItem("certificate", JSON.stringify(dataCerti))
-    alert("certificado")
-    // document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
+    alert("Certificado adicionado com Sucesso!")
 }
+   
+
+function Teste(){
+    localStorage.removeItem("certificate")
+}
+// if(localStorage.certificate === undefined ){alert("aqui!")
+// }else {localStorage.remove("certificate")}
