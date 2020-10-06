@@ -1,7 +1,7 @@
-$(document).ready(function(){
-    $('.CPF').mask('000.000.000-00');
-    $('.numCelular').mask('(99) 99999-9999');
-  });
+// $(document).ready(function(){
+//     $('.CPF').mask('000.000.000-00');
+//     $('.numCelular').mask('(99) 99999-9999');
+//   });
 
 let dataBase = [];
 let dataCerti = []; 
@@ -50,10 +50,10 @@ function validation(){
 
 function Exit(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.remove("online");
-    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
+    location.href="home.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
-function AddHour(event, beginEvent,  endEvent, hour,type ){
+function AddHour(event, beginEvent, endEvent, hour, type){
     this.evento = event;
     this.beginEvent = beginEvent;
     this.endEvent = endEvent;
@@ -63,9 +63,10 @@ function AddHour(event, beginEvent,  endEvent, hour,type ){
 
 function Add(){
     let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-        return element.value;});  
+        return element.value;});
+         
     dataCerti.push(new AddHour (certificado[0], certificado[1], certificado[2], certificado[3], certificado[4]))
     localStorage.setItem("certificate", JSON.stringify(dataCerti))
-    alert("Certificado Adicionado com Sucesso!")
+    alert("certificado")
     // document.getElementById('evento').innerHTML = add; //aqui tem que colocar uma construção de tabela para adicionar as informações de forma a visualizar 
 }
