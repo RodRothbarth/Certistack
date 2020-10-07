@@ -73,16 +73,18 @@ function Add(){
 
     if (certificado[0] && certificado[1] && dayFormat && dataFormatada){
     
-        if (localStorage.getItem("certificate") === null ){
+        if (localStorage.getItem("certificate") === null){
             dataCerti.push(new AddHour (certificado[0], dataFormatada, dayFormat, certificado[1], certificado[2]))
                 localStorage.setItem("certificate", JSON.stringify(dataCerti))
-                alert("Certificado adicionado com Sucesso!")
+                alert("oi estou aqui")
         } else { 
-            
-            dataCerti = JSON.parse(localStorage.getItem("certificate"))  // for? //[teste 1]
+            let qwe =  JSON.parse(localStorage.getItem("certificate"))
+            alert(localStorage)
+            dataCerti.push(new AddHour (qwe))
+            localStorage.setItem("certificate", JSON.stringify(dataCerti))   
             dataCerti.push(new AddHour (certificado[0], dataFormatada, dayFormat, certificado[1], certificado[2]))
             localStorage.setItem("certificate", JSON.stringify(dataCerti))
-            alert("Certificado adicionado com Sucesso!")
+            alert("entrei")
         }
     }else{  
             alert("Todos os campos devem ser preenchidos.")
