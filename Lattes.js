@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('.CPF').mask('000.000.000-00');
     $('.numCelular').mask('(99) 99999-9999');
-  });
+});
 
 let dataBase = [];
 
@@ -50,6 +50,10 @@ function validation(){
     }
     usern.value = "";
     pssw.value = "";
+}
+function cadastra(){
+    $('#cadastro').show();
+    $('#login').hide();
 }
 
 function Exit(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 

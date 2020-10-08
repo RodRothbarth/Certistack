@@ -1,0 +1,24 @@
+body{
+    height: 60vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* =============== LOGIN */
+
+.login{
+    width: 40%;
+    height: 50%;
+    position: relative;
+    background-color: darkblue;
+}
+
+/* =============== CADASTRO */
+div.cadastro{
+    width: 800px;
+    height: 800px;
+    position: relative;
+    left: 40%;
+    display: none;
+}
