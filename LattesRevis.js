@@ -8,7 +8,7 @@ $(document).ready(function(){
 let dataBase = [];
 let dataCerti = []; 
 
-function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university ){ //função construtora para o cadastro.
+function User (name, cpf, email, dataNasc, interrest, pswd, university, lattes){ //função construtora para o cadastro.
     this.nome = name;
     this.cpf = cpf;
     this.email = email;
@@ -17,7 +17,6 @@ function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, u
     this.pswd = pswd;
     this.university = university;
     this.site = lattes;
-    this.celular = cellphone;
 };
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
@@ -27,7 +26,7 @@ function Cadastrar(){ //sistema para cadastrar um novo usuario.
     alert("Cadastro Realizado com Sucesso!");
 }
 
-function Validation(){
+function validation(){
 //validação de login e senha para entrar na area de perfil.
     let usern = document.getElementById("cpf");
     let pssw = document.getElementById("senha");
@@ -37,7 +36,7 @@ function Validation(){
         }else if (dataBase[i].cpf == usern.value || dataBase[i].email == usern.value){
             if(dataBase[i].pswd == pssw.value){
                 console.log("Sucesso");
-                localStorage.setItem('online', JSON.stringify(dataBase[i]));
+                localStorage.setItem('user', JSON.stringify(dataBase[i]));
                 location.href="perfil.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
             }else{
                 alert("Senha Incorreta");
@@ -49,9 +48,9 @@ function Validation(){
     pssw.value = "";
 }
 
-function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
-    localStorage.removeItem("online");
-    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
+function Exit(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
+    localStorage.remove("user");
+    location.href="home.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
 // function AddHour(event, hour, type, date){
