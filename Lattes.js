@@ -1,7 +1,12 @@
-// $(document).ready(function(){
-//     $('.CPF').mask('000.000.000-00');
-//     $('.numCelular').mask('(99) 99999-9999');
-//   });
+// comimit pull e push
+
+$(document).ready(function(){
+    $('.CPF').mask('000.000.000-00');
+    $('.numCelular').mask('(00) 00000-0000');
+    $(".dataNasc").mask("00/00/0000");
+    $(".dataCertInicio").mask("00/00/0000");
+    $(".dataCertFim").mask("00/00/0000");
+  });
 
 let dataBase = [];
 let dataCerti = []; 
@@ -23,6 +28,8 @@ function Cadastrar(){ //sistema para cadastrar um novo usuario.
     dataBase.push(new User(user[0], user[1], user[2], user[3], user[4], user[5], user[7], user[8], user[9]));
     localStorage.setItem("user", JSON.stringify(dataBase));
     alert("Cadastro Realizado com Sucesso!");
+    $(".login").show();
+    $(".cadastro").hide();
 }
 
 function Validation(){
@@ -45,6 +52,11 @@ function Validation(){
     }
     usern.value = "";
     pssw.value = "";
+}
+
+function mostraCadastro(){
+    $(".cadastro").show();
+    $(".login").hide();
 }
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
