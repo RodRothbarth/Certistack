@@ -23,7 +23,7 @@ function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, u
 };
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
-    if (ValidEmail()==false || ValidPass()==false || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
+    if (ValidEmail()==false || !ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
         alert("TODOS OS CAMPOS DEVEM SER PREENCHIDOS CORRETAMENTE!")
     }else{
         if (localStorage.getItem("user") === null ){
@@ -63,7 +63,7 @@ function ValidEmail(field){
         (domain.search(".")!=-1)&&
         (domain.indexOf(".")>=1)&&
         (domain.lastIndexOf(".")< domain.length - 1)){
-            document.getElementById("msgEmail").innerHTML = "E-mail Válido"
+            document.getElementById("msgEmail").innerHTML = "E-mail Válido" //onblur
             return true
     }else{
             document.getElementById("msgEmail").innerHTML = "E-mail Inválido"
@@ -76,7 +76,7 @@ function ValidPass(){
         document.getElementById("msgSenha").innerHTML = "Senha OK!"
             return true
     }else{
-        document.getElementById("msgSenha").innerHTML = "Senha Diferente"
+        document.getElementById("msgSenha").innerHTML = "Senha Diferente!"
             return false
         }
 }
@@ -104,38 +104,33 @@ function Logout(){ // botão para sair do perfil validado para troca de perfil o
     location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
-function DelUser(){ //para deletar usuario
-    let toDel = prompt("Para confirmar digite seu cpf:")
-    for (let i=0; i < dataBase.length; i++){
-        if (dataBase[i].cpf === toDel){
-            dataBase.splice(dataBase[i],1);
-        }
-    }
-}
-
 function Add(){ //adicopnar certificados (array para os certificados)
+   let testObjeto;
+    Array.from(document.getElementsByName("addCerti")).forEach(function(element){
+    testObjeto[element.keys] = element.value;});
     let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-        return element.value;});
+        return element.value;}); //tentar pegar direto do formulario
     
     if (certificado){
         if (localStorage.getItem("certificate") === null ){
             dataCerti.push(certificado);
                 localStorage.setItem("certificate", JSON.stringify(dataCerti));
                 alert("Certificado adicionado com Sucesso!");
+                //adicionar no objeto 'user.certificado"
         } else { 
             dataCerti = JSON.parse(localStorage.getItem("certificate"));  
             dataCerti.push(certificado);
                 localStorage.setItem("certificate", JSON.stringify(dataCerti));
                 alert("Certificado adicionado com Sucesso!");
+                //adicionar no objeto 'user.certificado"
         }
     }else{  
-        alert(certificado)
         alert("Todos os campos devem ser preenchidos.");
         }  
             
 }
 
-let linhasTabela= []
+let linhasTabela= JSON.parse(localStorage.getItem('online'))
 function RemoveCert(){
     
    let confirm = prompt("Digite o nome do evento para confirmar:");
@@ -148,12 +143,6 @@ function RemoveCert(){
     };   
 }
 
-//    dataCerti = JSON.parse(localStorage.getItem("certificate"));
-    //    for (let i = 0; i < dataCerti.length; i++){
-   
-    //    linhasTabela.push(Object.values(dataCerti[i]));
-       
-    //    console.log(linhasTabela);
 function criaTag(elemento){
     return document.createElement(elemento)
 }
