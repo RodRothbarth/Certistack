@@ -11,9 +11,9 @@ let user = Array.from(document.getElementsByName("cadastro")).map(function(eleme
 let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
-function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
+function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
     this.nome = name;
-    this.cpf = cpf;
+    this.documento = documents;
     this.email = email;
     this.dataNasc = dataNasc;
     this.interesse = interrest;
@@ -42,6 +42,7 @@ function Cadastrar(){ //sistema para cadastrar um novo usuario.
     } 
 }
 
+<<<<<<< HEAD
 function TestaCPF(strCPF) {
     var Soma = 0;
     var Resto;
@@ -75,6 +76,9 @@ function Chamar(){
 }
 
 function DelUser(){
+=======
+function DelUser(){ //deletar usuario do sistema
+>>>>>>> origin/rodrigo
     let toDel = JSON.parse(localStorage.getItem("online"))
     for (let i=0; i < dataBase.length; i++){
         if (dataBase[i].cpf === toDel.cpf){
@@ -117,6 +121,37 @@ function cadastra(){
     $('#login').hide();
 }
 
+function TestaCPF(strCPF) {
+    var Soma = 0;
+    var Resto;
+    
+  if (strCPF == "00000000000") return false;
+
+  for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+  Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+  Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+    return true;    
+}
+// ambas as funçoes para testar a validação dos cpfs inceridos.
+function Chamar(){
+    var strCPF = document.getElementById("cpf").value;
+    TestaCPF(strCPF);
+    if (TestaCPF(strCPF) == true) {
+        alert("Você digitou um CPF Válido!")
+    }else{
+        alert("Você digitou um CPF Inválido!")
+    } 
+}
+
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     dataBase = JSON.parse(localStorage.getItem("user"))
     for(let i =0; i < dataBase.length; i++){
@@ -129,11 +164,11 @@ function Logout(){ // botão para sair do perfil validado para troca de perfil o
 }
 
 function Add(){ //adicopnar certificados (array para os certificados)
-    let certificado;
-     Array.from(document.getElementsByName("addCerti")).forEach(function(element){
-        certificado[element.keys] = element.value;});
-    //  let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-    //      return element.value;}); //tentar pegar direto do formulario 
+    
+    //  Array.from(document.getElementsByName("addCerti")).forEach(function(element){
+    //     certificado[element.keys] = element.value;});
+    let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
+         return element.value;}); //tentar pegar direto do formulario 
     if (certificado){
 
         let update = JSON.parse(localStorage.getItem("online"))
@@ -206,8 +241,3 @@ tfoot.appendChild(linhaFoot);
 tabela.appendChild(thead);
 tabela.appendChild(tbody);
 tabela.appendChild(tfoot);
-
-
-
-
-
