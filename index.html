@@ -27,6 +27,7 @@
             <div class="form-group">
                 <button type="button" class="form-control" id="btnLogin" onclick="Validation()" style="width: 200px; border-radius: 20px;">Logar</button>
                 <a href="teste.html">Esqueceu sua Senha?</a>
+                <a href="#" onclick="mostraCadastro()">Não possui cadastro?</a><br>
             </div>
     </div>
     <div class="cadastro">
@@ -39,7 +40,7 @@
                 <input required type="text" id="nome" name="cadastro" placeholder="Digite seu nome completo" class="form-control" style="width: 250px; height: 35px; border-radius: 20px;">
             </div>
             <div class="form-group">
-                <label for="cpf">CPF</label>
+                <label for="cpf" onblur="Chamar()">CPF</label>
                 <input required type="text" id="cpf" name="cadastro" placeholder="Digite o seu CPF" class="CPF form-control" style="width: 250px; height: 35px; border-radius: 20px;">
             </div>
             <div class="form-group">
