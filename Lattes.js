@@ -25,11 +25,6 @@ function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interr
     this.certificados = certificates;
 };
 
-function mostraCadastro(){
-    $(".cadastro").show();
-    $(".login").hide();
-}
-
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
     if (!ValidPass() || !user){ // confirma se os campos foram preenchidos com a mesma senha  VERIFICAR COMO ATESTAR TREU OU FALSE NO RETURN
         alert("TODOS OS CAMPOS DEVEM SER PREENCHIDOS CORRETAMENTE!")
