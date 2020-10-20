@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $('.CPF').mask('000.000.000-00');
-    $('.numCelular').mask('(00) 00000-0000');
+    $(".cpf").mask('000.000.000-00');
+    $(".numCelular").mask('(00) 00000-0000');
     $(".dataNasc").mask("00/00/0000");
     $(".dataCertInicio").mask("00/00/0000");
     $(".dataCertFim").mask("00/00/0000");
@@ -9,19 +9,19 @@ $(document).ready(function(){
 let dataBase = [];
 
 //função criadora de objeto para adição de informação em cadastro
-function User (name, email, pswd, account, documents, cellphone, dataNasc, university, area, lattes, certificates){ //função construtora para o cadastro.
-    this.conta = account;
-    this.area = area;
-    this.celular = cellphone;
-    this.certificados = certificates;
-    this.dataNasc = dataNasc;
-    this.documento = documents;
-    this.email = email;
-    this.site = lattes;
+function User(name, email, senha, perfil, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
     this.nome = name;
-    this.senha = pswd;
-    this.university = university;
-};
+    this.email = email;
+    this.senha = senha;
+    this.perfil = perfil;
+    this.documento = documento;
+    this.telefone = telefone;
+    this.dataNasc = dataNasc;
+    this.instituicao = instituicao;
+    this.area = area;
+    this.lattes = lattes;
+    this.certificados = certificados;
+}
 
 function mostraCadastro(){ //muda a mostragem da pagina de login para cadastro
     $(".cadastro").show();
@@ -38,43 +38,41 @@ function Validation(){
         alert(dataBase[i].documento);
         alert(usern);
         if(dataBase[i].documento === usern.value){
-            alert("QWE");
             if(dataBase[i].senha === pssw.value){
-                alert("sucesso");
                 localStorage.setItem("online", JSON.stringify(dataBase[i]))
-                // location.href="perfil.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
+                if(dataBase[i].perfil === "pf"){
+                    location.href="/html/VizualizarCertificado.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
+                }else{
+                    location.href="/html/cadastroCertificado.html";// site à ser feita de perfil do cliente validado
+                }
             }else{
-                alert("senha incorreta!");
+                alert("Senha Incorreta!");
             };
             break;
         }else{
-            alert("CPF incorreto!");
+            alert("Login Incorreto!")
         };
     };
 
-}
+};
 
 function Cadastrar(){ //sistema para cadastrar um novo usuario.
     let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
-    
-    if (ValidPass() || user){
+     
         if (localStorage.getItem("user") === null ){
-            dataBase.push(new User(user[0], user[1], user[2],user[4], user[5], user[6], user[7], user[8], user[9]));
+            dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
             $(".login").show();
             $(".cadastro").hide();
         }else{
             dataBase = JSON.parse(localStorage.getItem("user"))
-            dataBase.push(new User(user[0], user[1], user[2],user[4], user[5], user[6], user[7], user[8], user[9]));
+            dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9], user[10]));
             localStorage.setItem("user", JSON.stringify(dataBase));
             alert("Cadastro Realizado com Sucesso!");
             $(".login").show();
             $(".cadastro").hide();
-        }
-    }else{
-        alert("Todos os campos devem ser preencidos corretamente!")
-    }    
+        }   
 }
 
 
@@ -112,10 +110,8 @@ function Chamar(){ //realiza o teste no cpf inserido
 
 function ValidPass(){ //valida se a senha e a a comfirmação de senha estao iguais.
     if (user[2] === user[3]){
-        document.getElementById("msgSenha").innerHTML = "Senha OK!"
-            return true
+             test = 1
     }else{
-        document.getElementById("msgSenha").innerHTML = "Senha Diferente!"
-            return false
+            test = 0
         }
 }

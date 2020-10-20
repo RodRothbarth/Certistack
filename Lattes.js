@@ -12,7 +12,7 @@ let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
 function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
-    this.nome = name;
+    this.nemai = name;
     this.documento = documents;
     this.email = email;
     this.dataNasc = dataNasc;
