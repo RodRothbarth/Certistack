@@ -106,48 +106,53 @@ function getDataCertificate() {
 
 function criaTag(elemento) {
     return document.createElement(elemento)
-}
-        
-    let titulo = document.querySelector("h1");
+    }
     
-   let tabela = document.getElementById("tabela");
-        
+    let titulo = document.querySelector("h1");
+
+    let tabela = document.getElementById("tabela");
+    
     let thead = criaTag("thead");
     let tbody = criaTag("tbody");
     let tfoot = criaTag("tfoot");
-        
-    let indicesTabela = ["Evento", "Data Inicial", "Data Final", "Horas", "Tipo"];
-       
+    
+    let indicesTabela = ["Evento", "Data Inicial", "Data Final", "Horas", "Tipo", "Editar", "Deletar"];
     let linhaHead = criaTag("tr");
-        
+    
     function criaCelula(tag, text) {
         tag = criaTag(tag);
         tag.textContent = text;
         return tag;
         }
-        
-        for(j = 0; j < indicesTabela.length; j++) {
-            let th = criaCelula("th", indicesTabela [j]);
-            linhaHead.appendChild(th);
+    for(j = 0; j < indicesTabela.length; j++) {
+        let th = criaCelula("th", indicesTabela [j]);
+        linhaHead.appendChild(th);
+    }
+    thead.appendChild(linhaHead);
+    
+    
+    for(j = 0; j < linhasTabela.length; j++) {
+        let linhaBody = criaTag("tr");
+        let btnedit = document.createElement('button')
+        let checkdel = document.createElement('select')
+             
+                   
+        for(i = 0; i < linhasTabela[j].length; i++) {
+            cel = criaCelula("td", linhasTabela[j][i]);
+            linhaBody.appendChild(cel);
+            linhaBody.appendChild(btnedit);
+            linhaBody.appendChild(checkdel);                                
         }
-        thead.appendChild(linhaHead);
         
-        
-        for(j = 0; j < linhasTabela.length; j++) {
-            let linhaBody = criaTag("tr");
-        
-            for(i = 0; i < linhasTabela[j].length; i++) {
-                cel = criaCelula("td", linhasTabela[j][i]);
-                linhaBody.appendChild(cel); 
-            }
         tbody.appendChild(linhaBody);
-        }
+    }
+    
     let linhaFoot = criaTag("tr");
     let celulaFoot = criaCelula("td","Certistack");
-    celulaFoot.setAttribute("colspan",5);
+    celulaFoot.setAttribute("colspan",7);
     linhaFoot.appendChild(celulaFoot);
     tfoot.appendChild(linhaFoot);
-        
+    
     tabela.appendChild(thead);
     tabela.appendChild(tbody);
     tabela.appendChild(tfoot);
