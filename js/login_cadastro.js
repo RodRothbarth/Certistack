@@ -1,19 +1,22 @@
 $(document).ready(function(){
-    $(".cpf").mask('000.000.000-00');
+    //$(".cpf").mask('000.000.000-00');
     $(".numCelular").mask('(00) 00000-0000');
-    $(".dataNasc").mask("00/00/0000");
     $(".dataCertInicio").mask("00/00/0000");
     $(".dataCertFim").mask("00/00/0000");
   });
 
 let dataBase = [];
 
+function mostraCadastro(){ //muda a mostragem da pagina de login para cadastro
+    $(".cadastro").show();
+    $(".login").hide();
+};
+
 //função criadora de objeto para adição de informação em cadastro
-function User(name, email, senha, perfil, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
+function User(name, email, senha, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
     this.nome = name;
     this.email = email;
     this.senha = senha;
-    this.perfil = perfil;
     this.documento = documento;
     this.telefone = telefone;
     this.dataNasc = dataNasc;
@@ -23,11 +26,25 @@ function User(name, email, senha, perfil, documento, telefone, dataNasc, institu
     this.certificados = certificados;
 }
 
-function mostraCadastro(){ //muda a mostragem da pagina de login para cadastro
-    $(".cadastro").show();
-    $(".login").hide();
-};
-
+function Cadastrar(){ //sistema para cadastrar um novo usuario.
+    let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
+    let nasc = new Date(user[7].split('-').join('/')).toLocaleDateString('pt-br')    
+        
+    if (localStorage.getItem("user") === null ){
+        dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], nasc , user[8], user[9]));
+        localStorage.setItem("user", JSON.stringify(dataBase));
+        alert("Cadastro Realizado com Sucesso!");
+        $(".login").show();
+        $(".cadastro").hide();
+    }else{
+        dataBase = JSON.parse(localStorage.getItem("user"))
+        dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], nasc , user[8], user[9]));
+        localStorage.setItem("user", JSON.stringify(dataBase));
+        alert("Cadastro Realizado com Sucesso!");
+        $(".login").show();
+        $(".cadastro").hide();
+    }        
+}
 //valida o login para entrada no perfil do usuario ou cliente desejado
 function Validation(){
     dataBase = JSON.parse(localStorage.getItem('user'))
@@ -35,8 +52,6 @@ function Validation(){
     let pssw = document.getElementById("senha");
 
     for(let i = 0; i < dataBase.length; i++){
-        alert(dataBase[i].documento);
-        alert(usern);
         if(dataBase[i].documento === usern.value){
             if(dataBase[i].senha === pssw.value){
                 localStorage.setItem("online", JSON.stringify(dataBase[i]))
@@ -56,29 +71,19 @@ function Validation(){
 
 };
 
-function Cadastrar(){ //sistema para cadastrar um novo usuario.
-    let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
-     
-        if (localStorage.getItem("user") === null ){
-            dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9], user[10]));
-            localStorage.setItem("user", JSON.stringify(dataBase));
-            alert("Cadastro Realizado com Sucesso!");
-            $(".login").show();
-            $(".cadastro").hide();
-        }else{
-            dataBase = JSON.parse(localStorage.getItem("user"))
-            dataBase.push(new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9], user[10]));
-            localStorage.setItem("user", JSON.stringify(dataBase));
-            alert("Cadastro Realizado com Sucesso!");
-            $(".login").show();
-            $(".cadastro").hide();
-        }   
-}
 
+
+function ValidPass(){
+    let test = document.getElementById("senhac").value;
+    let test2 = document.getElementById("passc").value;
+    if(test !== test2){
+        alert("Os campos de senha devem ser iguais!")
+    }
+}
 
 //realizateste para verificar a autenticidade do numero de cpf
 function TestaCPF(strCPF) {
-    var Soma = 0;
+    var Soma = 0;                  
     var Resto;
     
     if (strCPF == "00000000000") return false;
@@ -99,19 +104,9 @@ function TestaCPF(strCPF) {
 }
     
 function Chamar(){ //realiza o teste no cpf inserido
-    var strCPF = document.getElementById("cpf").value;
+    var strCPF = document.getElementById("documento").value;
     TestaCPF(strCPF);
-    if (TestaCPF(strCPF) == true) {
-    innerHTML = "Você digitou um CPF Válido!"
-    }else{
-    innerHTML = "Você digitou um CPF Inválido!"
+    if (TestaCPF(strCPF) !== true) {
+        alert("Você digitou um CPF Inválido!")
     } 
-}
-
-function ValidPass(){ //valida se a senha e a a comfirmação de senha estao iguais.
-    if (user[2] === user[3]){
-             test = 1
-    }else{
-            test = 0
-        }
 }
