@@ -41,12 +41,17 @@ function Logout(){ // botão para sair do perfil validado para troca de perfil o
 }
 
 
-// criação de tabela para mostrar os certificados que estao no cadastro.
- let linhasTabela = getDataCertificate()
-
 function getDataCertificate() {
-    return JSON.parse(localStorage.getItem("certificate"));
+    let array = [];
+    
+    JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
+        array.push(Object.values(info))
+    });
+    return array;
 }
+
+
+let linhasTabela = getDataCertificate() //criação de tabela para mostrar os certificados armazenados no perfil do cliente.
 
 function criaTag(elemento) {
     return document.createElement(elemento)

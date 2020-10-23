@@ -48,8 +48,8 @@ function Add(){ //adicopnar certificados (array para os certificados)
 function getDataCertificate() {
     let array = [];
     
-    JSON.parse(localStorage.getItem("certificate")).forEach(function(valor){ 
-        array.push(Object.values(valor))
+    JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
+        array.push(Object.values(info))
     });
     return array;
 }

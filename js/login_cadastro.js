@@ -55,11 +55,6 @@ function Validation(){
         if(dataBase[i].documento === usern.value){
             if(dataBase[i].senha === pssw.value){
                 localStorage.setItem("online", JSON.stringify(dataBase[i]))
-                if(dataBase[i].perfil === "pf"){
-                    location.href="/html/VizualizarCertificado.html"; // site à ser feita de perfil do usuario validado, ou window.open("home.html") para abrir em uma nova aba
-                }else{
-                    location.href="/html/cadastroCertificado.html";// site à ser feita de perfil do cliente validado
-                }
             }else{
                 alert("Senha Incorreta!");
             };
