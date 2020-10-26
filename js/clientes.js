@@ -1,52 +1,79 @@
-function Add(){ //adicona certificados no cadastro do cliente (array para os certificados)
+$(document).ready(function(){
+    $(".cpf").mask('000.000.000-00');
+    $(".numCelular").mask('(00) 00000-0000');
+    $(".dataCertInicio").mask("00/00/0000");
+    $(".dataCertFim").mask("00/00/0000");
+  });
+
+  const dataClient = []; //ou deixar let?
+
+  function Cliente(name, email, documento, telefone, dataNasc, instituicao, area, lattes, certificados){
+    this.nome = name;
+    this.email = email;
+    this.documento = documento;
+    this.telefone = telefone;
+    this.dataNasc = dataNasc;
+    this.instituicao = instituicao;
+    this.area = area;
+    this.lattes = lattes;
+    this.certificados = certificados;
+}
+//realizateste para verificar a autenticidade do numero de cpf
+function TestaCPF(strCPF) {
+    var Soma = 0;                  
+    var Resto;
     
-    //  Array.from(document.getElementsByName("addCerti")).forEach(function(element){
-    //     certificado[element.keys] = element.value;});
-    let certificado = Array.from(document.getElementsByName("addCerti")).map(function(element){
-         return element.value;}); //tentar pegar direto do formulario 
-    if (certificado){
+    if(strCPF.length !== 11 ) return false
+    if (strCPF == "00000000000") return false;
 
-        let update = JSON.parse(localStorage.getItem("online"))
-        dataCerti.push(certificado);
-        update.certificados = dataCerti;    
-        alert("Certificado adicionado com Sucesso!");
-        //adicionar no objeto 'user.certificado"
+    for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
 
-    }else{  
-        alert("Todos os campos devem ser preenchidos.");
-    }              
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+    Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11))  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+    return true;    
+}
+    
+function ChamarCpf(){ //realiza o teste no cpf inserido
+    var strCPF = document.getElementById("documento").value;
+    strCPF = strCPF.replace(/\./g, '');
+    strCPF = strCPF.replace('-', '');
+    TestaCPF(strCPF);
+    if (TestaCPF(strCPF) !== true) {
+        alert("Você digitou um CPF Inválido!")
+    } 
 }
 
-function RemoveCert(){ // remove do cadastro o certificado desejado
-    
-    let confirm = prompt("Digite o nome do evento para confirmar:");
-     for (let i=0; i < dataCerti.length; i++){
-         
-         if(Object.keys(dataCerti[i].evento) === confirm){
-             dataCerti.splice(dataCerti[i],1);
-             alert(dataCerti);
-         };
-     };   
- }
-
-function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
-    dataBase = JSON.parse(localStorage.getItem("user"))
-    for(let i =0; i < dataBase.length; i++){
-        if (dataBase[i].documento === JSON.parse(localStorage.getItem("online")).documento){
-            dataBase[i] = JSON.parse(localStorage.getItem("online"))
-        }
-    }
-    localStorage.removeItem("online");
-    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
+function CadastrarCliente(){ //sistema para cadastrar um novo usuario.
+    let cliente = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
+    let nasc = new Date(user[5].split('-').join('/')).toLocaleDateString('pt-br')    
+        
+    if (localStorage.getItem("cliente") === null ){
+        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],nasc,cliente[6],cliente[7]));
+        localStorage.setItem("cliente", JSON.stringify(dataClient));
+        alert("Cadastro Realizado com Sucesso!");
+    }else{
+        dataClient = JSON.parse(localStorage.getItem("cliente"))
+        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],nasc,cliente[6],cliente[7]));
+        localStorage.setItem("cliente", JSON.stringify(dataClient));
+        alert("Cadastro Realizado com Sucesso!");
+    }        
 }
-
 
 function getDataCertificate() {
     let array = [];
-    
-    JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
+
+    JSON.parse(localStorage.getItem("cliente")).forEach(function(info){ 
         array.push(Object.values(info))
     });
+
     return array;
 }
 

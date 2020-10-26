@@ -19,7 +19,6 @@ function contForm(){
 
 function Add(){ //adicopnar certificados (array para os certificados)
     let certificados = contForm()
-    alert(certificados)
     if (localStorage.getItem('certificate') === null){
         dataCerti.push(certificados)
         localStorage.setItem('certificate', JSON.stringify(dataCerti))   
@@ -30,20 +29,8 @@ function Add(){ //adicopnar certificados (array para os certificados)
         dataCerti.push(certificados) 
         localStorage.setItem('certificate', JSON.stringify(dataCerti))   
         alert("Certificado adicionado com Sucesso!");
-        // dataCerti.push(certificados)
-        // localStorage.setItem('certificate', JSON.stringify(dataCerti))   
-        // alert("Certificado adicionado com Sucesso!");
     }              
 }
-
-// function getDataCertificate() {
-//     let array;
-//     for(let i=0; i< localStorage.length; i++){
-//         array.push(JSON.stringify(Object.values(JSON.parse(localStorage.getItem("certificate"))[i])));
-//     }
-//     alert(array)
-//     return array.forEach()
-// }
 
 function getDataCertificate() {
     let array = [];

@@ -40,10 +40,10 @@ function ModificarCadastro(){ //fazer função de edição
     }        
 }
 
-function getDataCertificate() {
+function getDataUser() {
     let array = [];
     
-    JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
+    JSON.parse(localStorage.getItem("online")).forEach(function(info){ 
         array.push(Object.values(info))
     });
     return array;

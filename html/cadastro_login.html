@@ -35,7 +35,7 @@
         <div>
             <h3 id="titulo_Form">CADASTRO</h3>
         </div>
-        <form onsubmit="return Cadastrar()"> 
+        <form onsubmit="return CadastrarUser()"> 
                 <div class="form-group">
                     <input type="text" id="nome" name="cadastro" placeholder="Nome completo" class="form-control" required>
                 </div>
@@ -52,7 +52,7 @@
             </div> 
             <div class="form-row">
                 <div class="form-group col">
-                    <input onblur="Chamar()" type="text" id="documento" name="cadastro" placeholder="CPF" class="cpf form-control" minlength="11" required>
+                    <input onblur="ChamarCnpj()" type="text" id="documento" name="cadastro" placeholder="CNPJ" class="documento form-control" minlength="14" required>
                 </div>
                 <div class="form-group col">
                     <input type="text" id="celular" name="cadastro" placeholder="Número de celular" class="numCelular form-control" minlength="10" required>
