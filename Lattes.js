@@ -1,13 +1,11 @@
 // comimit pull e push
-
 $(document).ready(function(){
     $('.CPF').mask('000.000.000-00');
     $('.numCelular').mask('(00) 00000-0000');
-    $(".dataNasc").mask("00/00/0000");
-    $(".dataCertInicio").mask("00/00/0000");
-    $(".dataCertFim").mask("00/00/0000");
-  });
-
+    $('.dataNasc').mask('00/00/0000');
+    $('.dataCertInicio').mask('00/00/0000');
+    $('.dataCertFim').mask('00/00/0000');
+});
 let dataBase = [];
 let dataCerti = []; 
 
@@ -54,9 +52,23 @@ function Validation(){
     pssw.value = "";
 }
 
-function mostraCadastro(){
-    $(".cadastro").show();
+function mostraWelcome(){
     $(".login").hide();
+    $(".cadastro").hide();
+    $(".apresentacao").show();
+    $(".seta").hide();
+}
+
+function mostraLogin(){
+    $(".seta").show();
+    $(".login").show();
+    $(".apresentacao").hide();
+}
+
+function mostraCadastro(){
+    $(".seta").show();
+    $(".cadastro").show();
+    $(".apresentacao").hide();
 }
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 

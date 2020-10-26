@@ -12,7 +12,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="login">
+    <div class="container">
+        <img src="images/logo.jpg" alt="">
+    </div>
+    <div class="container-interativo">
+        <div class="seta">
+            <a href="#" onclick="mostraWelcome()" id="seta" class="arrow-back"></a>
+        </div>
+        <!-- <label for="seta" style="margin-left: 30px; margin-top: 12px; position: absolute; color: #1E1E1E;">VOLTAR</label> -->
+        <div class="apresentacao">
+            <h1>Bem vindo ao CertiStack!</h1>
+            <h4>O Certistack realiza de forma unificada e automática as declarações de horas extracurriculares. Tem a opção de subir na interface o certificado de forma online. Disponível de modo constante para pesquisa do usuário e comprovação das horas.</h4>
+            <div class="form-row">
+                <div class="col">
+                    <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="mostraLogin()" style="width: 300px; height: 60px; background-color: #0AC5A8 !important;">LOGIN</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="mostraCadastro()" style="height: 60px; background-color: #0AC5A8 !important">CADASTRAR-SE</button>
+                </div>
+            </div>
+        </div>
+        <div class="login">
             <div class="form-group">
                 <h3 id="titulo_Login">ENTRAR</h3>
             </div>
@@ -23,13 +43,10 @@
                 <input type="password" id="senha" name="login" placeholder="Senha" class="form-control">
             </div>
             <div class="form-group">
-                <button type="button" class="form-control btn btn-primary" id="btnLogin" onclick="Validation()" style="width: 300px;">ENTRAR</button><br>
-                <a href="#" onclick="mostraCadastro()">Não possui cadastro?</a><br>
-                <a href="teste.html">Esqueceu sua Senha?</a>
+                <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="Validation()" style="width: 300px; background-color: #0AC5A8;">ENTRAR</button><br>
+                <a href="" style="color: #ffffff">Esqueceu sua Senha?</a>
             </div>
     </div>
-    <div>
-        &nbsp;
     </div>
     <div class="cadastro">
         <div>
@@ -42,7 +59,7 @@
                 <div class="form-group">
                     <input type="text" id="email" name="cadastro" placeholder="E-mail" class="form-control">
                 </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col">
                     <input type="password" id="senha" name="cadastro" placeholder="Senha" class="form-control">
                 </div>
@@ -52,9 +69,6 @@
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <input type="text" id="cpf" name="cadastro" placeholder="CPF" class="CPF form-control">
-                </div>
-                <div class="form-group col">
                     <input type="text" id="celular" name="cadastro" placeholder="Número de celular" class="numCelular form-control">
                 </div>
                 <div class="form-group col">
@@ -63,8 +77,14 @@
             </div>
             <div class="form-row">
                 <div class="form-group col">
+                    <input type="text" id="cpf" name="cadastro" placeholder="CPF" class="CPF form-control">
+                </div>
+                <div class="form-group col">
                     <input type="text" id="faculdade" name="cadastro" placeholder="Instituição" class="form-control" >
                 </div>
+            </div>
+ 
+            <div class="form-row">
                 <div class="form-group col">
                     <!-- Mudar para select -->
                     <select id="select" class="form-control" >
@@ -84,7 +104,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary form-control" id="btnCadastro" style="width: 100px; border-radius: px;">Cadastrar</button>
+                <button type="submit" class="btn btn-dark form-control" id="btnCadastro" style="width: 150px; border-radius: px;  background-color: #0AC5A8;">CADASTRAR</button>
             </div>
         </form> 
     </div>
