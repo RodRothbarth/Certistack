@@ -6,7 +6,7 @@
 let dataBase = [];
 let dataCerti = []; 
 
-function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university ){ //função construtora para o cadastro.
+function User (name, email, pswd, account, document, cellphone, dataNasc, university, interrest, lattes, certificates ){ //função construtora para o cadastro.
     this.nome = name;
     this.cpf = cpf;
     this.email = email;

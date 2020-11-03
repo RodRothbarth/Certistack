@@ -13,10 +13,14 @@ let dataCerti = [];
 
 <<<<<<< HEAD
 function User (name, documents, email, cellphone, dataNasc, pswd, lattes, interrest, university, account, certificates ){ //função construtora para o cadastro.
+<<<<<<< HEAD
 =======
 function User (name, cpf, email, cellphone, dataNasc, pswd, lattes, interrest, university ){ //função construtora para o cadastro.
 >>>>>>> 75e72e9c13b147bab68937005d20c5887a50f218
     this.nome = name;
+=======
+    this.nemai = name;
+>>>>>>> rodrigo
     this.documento = documents;
     this.email = email;
     this.dataNasc = dataNasc;
@@ -78,10 +82,7 @@ function Chamar(){
     } 
 }
 
-function DelUser(){
-=======
 function DelUser(){ //deletar usuario do sistema
->>>>>>> origin/rodrigo
     let toDel = JSON.parse(localStorage.getItem("online"))
     for (let i=0; i < dataBase.length; i++){
         if (dataBase[i].cpf === toDel.cpf){
