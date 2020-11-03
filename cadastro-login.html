@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
     <div class="container">
@@ -17,12 +19,12 @@
     </div>
     <div class="container-interativo">
         <div class="seta">
-            <a href="#" onclick="mostraWelcome()" id="seta" class="arrow-back"></a>
+            <a href="#" onclick="mostraWelcome()" id="seta" class="seta"><i class="fas fa-arrow-circle-left fa-3x"></i></a>
         </div>
         <!-- <label for="seta" style="margin-left: 30px; margin-top: 12px; position: absolute; color: #1E1E1E;">VOLTAR</label> -->
         <div class="apresentacao">
             <h1>Bem vindo ao CertiStack!</h1>
-            <h4>O Certistack realiza de forma unificada e automática as declarações de horas extracurriculares. Tem a opção de subir na interface o certificado de forma online. Disponível de modo constante para pesquisa do usuário e comprovação das horas.</h4>
+            <h4>Comece a organizar seu portifólio acadêmico de uma forma totalmente digital. <strong>Faça login ou Cadastre-se abaixo.</strong></h4>
             <div class="form-row">
                 <div class="col">
                     <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="mostraLogin()" style="width: 300px; height: 60px; background-color: #0AC5A8 !important;">LOGIN</button>
@@ -71,13 +73,20 @@
                 <div class="form-group col">
                     <input type="text" id="celular" name="cadastro" placeholder="Número de telefone" class="numCelular form-control">
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col">
                     <input onblur="ChamarCnpj()" type="text" id="documento" name="login" placeholder="CNPJ" class="documento form-control" minlength="14">
                 </div>
             </div>
- 
+            <div class="form-row">
+                <div class="form-group col">
+                    <input type="text" id="centro-de-ensino" name="cadastro" placeholder="Centro de Ensino" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input type="text" id="departamento" name="cadastro" placeholder="Departamento" class="form-control">
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group col">
                     <!-- Mudar para select -->

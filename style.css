@@ -20,6 +20,8 @@ body, html{
     max-width: 1920px;
     height: 100%;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 .container{
     /* background-color: #1E1E1E; */
@@ -46,7 +48,7 @@ body, html{
     top: 240px;
     width: 600px;
     height: 200px;
-    text-align: initial;
+    text-align: center;
     font-size: 30px;
     margin-left: 125px;
 }
@@ -58,7 +60,7 @@ body, html{
     font-weight: 300;
 }
 .container-interativo .apresentacao .form-row {
-    padding-top: 100px;
+    margin-top: 80px;
 }
 .container-interativo .arrow-back::after {
     content: "";
@@ -73,6 +75,8 @@ body, html{
 }
 .container-interativo .seta{
     display: none;
+    color: #0AC5A8;
+    margin: 7px 5px;
 }
 .login{
     color: #ffffff;
@@ -87,12 +91,13 @@ body, html{
     color: #ffffff;
     position: absolute;
     width: 40%;
-    top: 50%;
+    top: 52%;
     left: 70%;
     transform: translate(-50%, -50%);
     display: none;
 }
 /* PG HOME */
+
 /* HEADER */
 .container-large{
     top: 0;
@@ -100,6 +105,7 @@ body, html{
     background-color: #2C3C5B;
     height: 80px;
     position: fixed;
+    z-index: 99999;
 }
 .container-large .nav{
     display: flex;
@@ -120,7 +126,33 @@ body, html{
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
+    border: none;
+    position: relative;
+    transition: all 400ms ease;
+    padding: 2px 10px;
 }
+.container-large .nav .itens .a-efeito:before{
+   content: '';
+   position: absolute;
+   top: 5px;
+   left: 0;
+   width: 0;
+   height: 25px;
+   background:  #0c6356;
+   transition: all 0.3s ease-out;
+   opacity: 0.3;
+}
+.container-large .nav .itens .a-efeito:hover:before{
+    background:  #0AC5A8;
+    width: 100%;
+    opacity: 0.3;
+ }
+ .container-large .nav .itens .a-efeito:hover:after{
+    background:  #0AC5A8;
+    width: 100%;
+    opacity: 0.3;
+    z-index: -1;
+ }
 .container-large .nav .usuario-nav{
     color: #ffffff ;
     display: flex;
@@ -166,12 +198,52 @@ body, html{
     position: relative;
     bottom: 0;
     width: 100%;
-    background-color: #2C3C5B;
     height: 100px;
+    background-color: #2C3C5B;
     max-height: 500px;
     border: 0;
     margin: 0;
     padding: 0;
+}
+.sub-footer{
+    background-color: #26334d;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+.sub-footer span{
+    font-size: 19px;
+    padding: 10px;
+    opacity: 0.6;
+}
+/* HOME */
+.home{
+    justify-content: center;
+    width: 100%;
+    display: grid;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 100px;
+}
+.home .apresentacao{
+    position: relative;
+    text-align: center;
+    font-size: 30px;
+    margin: auto;
+    width: 65%;
+}
+.home .apresentacao h1{
+    background: #0AC5A9;
+    border-radius: 10px;
+    padding: 10px;
+}
+.home .apresentacao p{
+    font-size: 22px;
+    font-weight: 300;
+}
+/* CAROUSEL */
+.home .carousel img{
+    width: 100%;
 }
 /* PG. PERFIL */
 .container-perfil {
@@ -192,7 +264,7 @@ body, html{
 } */
 .container-perfil .perfil form {
     width: 500px;
-    height: 550px;
+    height: auto;
     background-color: #F5F5F5;
     padding: 50px;
     border-radius: 10px;
@@ -220,10 +292,9 @@ body, html{
 /* PG. certificados */    
 .certificados{
     width: 100%;
-    height: 700px;
-    display: grid;
+    display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 100px;
 }
@@ -239,16 +310,25 @@ body, html{
     padding-bottom: 5px;
 }
 .certificados .cadastro-certificado{
-    width: 500px;
-    height: 550px;
+    width: 530px;
+    height: auto;
     background-color: #F5F5F5;
     padding: 50px;
     border-radius: 10px;
+    margin-bottom: 30px;
 }
 .certificados .cadastro-certificado form h3{
     font-size: 26px;
     font-weight: 400px;
     padding-bottom: 5px;
+}
+.certificados .tabela-certificados{
+    width: 660px;
+    height: 580px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow-y: auto;
 }
 .table-dark{
     background-color: #2C3C5B !important;
@@ -267,18 +347,26 @@ body, html{
 }
 .participantes{
     width: 100%;
-    height: 700px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 100px;
 
 }
 .participantes .cadastro-participantes{
-    width: 500px;
-    height: 580px;
+    width: 530px;
+    height: auto;
     background-color: #F5F5F5;
     padding: 50px;
     border-radius: 10px;
+    margin-bottom: 30px;
+}
+.participantes .tabela-participantes{
+    width: 660px;
+    height: 626px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow-y: auto;
 }

@@ -7,6 +7,17 @@ $(document).ready(function(){
     $('.dataCertInicio').mask('00/00/0000');
     $('.dataCertFim').mask('00/00/0000');
 });
+$(document).ready(function(){
+    $('.carousel').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        fade: true,
+        dots: true
+    });
+});
 let dataBase = [];
 let dataCerti = []; 
 
@@ -52,6 +63,12 @@ function Validation(){
     usern.value = "";
     pssw.value = "";
 }
+function mostraHome(){
+    $(".container-perfil").hide();
+    $(".certificados").hide();
+    $(".participantes").hide();
+    $(".home").show();
+}
 
 function mostraWelcome(){
     $(".login").hide();
@@ -75,18 +92,21 @@ function mostraCadastro(){
 function mostraPerfil(){
     $(".certificados").hide();
     $(".participantes").hide();
+    $(".home").hide();
     $(".container-perfil").show();
 }
 
 function mostraCertificados(){
     $(".container-perfil").hide();
     $(".participantes").hide();
+    $(".home").hide();
     $(".certificados").show();
 }
 
 function mostraParticipantes(){
     $(".container-perfil").hide();
     $(".certificados").hide();
+    $(".home").hide();
     $(".participantes").show();
 }
 
