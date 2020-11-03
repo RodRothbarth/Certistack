@@ -1,13 +1,23 @@
 // comimit pull e push
-
 $(document).ready(function(){
-    $('.CPF').mask('000.000.000-00');
+    // $('.CPF').mask('000.000.000-00');
+    $(".documento").mask('00.000.000/0000-00');
     $('.numCelular').mask('(00) 00000-0000');
-    $(".dataNasc").mask("00/00/0000");
-    $(".dataCertInicio").mask("00/00/0000");
-    $(".dataCertFim").mask("00/00/0000");
-  });
-
+    $('.dataNasc').mask('00/00/0000');
+    $('.dataCertInicio').mask('00/00/0000');
+    $('.dataCertFim').mask('00/00/0000');
+});
+$(document).ready(function(){
+    $('.carousel').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        fade: true,
+        dots: true
+    });
+});
 let dataBase = [];
 let dataCerti = []; 
 
@@ -53,6 +63,52 @@ function Validation(){
     usern.value = "";
     pssw.value = "";
 }
+function mostraHome(){
+    $(".container-perfil").hide();
+    $(".certificados").hide();
+    $(".participantes").hide();
+    $(".home").show();
+}
+
+function mostraWelcome(){
+    $(".login").hide();
+    $(".cadastro").hide();
+    $(".apresentacao").show();
+    $(".seta").hide();
+}
+
+function mostraLogin(){
+    $(".seta").show();
+    $(".login").show();
+    $(".apresentacao").hide();
+}
+
+function mostraCadastro(){
+    $(".seta").show();
+    $(".cadastro").show();
+    $(".apresentacao").hide();
+}
+
+function mostraPerfil(){
+    $(".certificados").hide();
+    $(".participantes").hide();
+    $(".home").hide();
+    $(".container-perfil").show();
+}
+
+function mostraCertificados(){
+    $(".container-perfil").hide();
+    $(".participantes").hide();
+    $(".home").hide();
+    $(".certificados").show();
+}
+
+function mostraParticipantes(){
+    $(".container-perfil").hide();
+    $(".certificados").hide();
+    $(".home").hide();
+    $(".participantes").show();
+}
 
 function mostraCadastro(){
     $(".cadastro").show();
@@ -61,7 +117,7 @@ function mostraCadastro(){
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.removeItem("online");
-    location.href="index.html"; //ou window.open("home.html") para abrir em uma nova aba
+    location.href="cadastro-login.html"; //ou window.open("home.html") para abrir em uma nova aba
 }
 
 function AddHour(event, beginEvent, endEvent, hour, type){
