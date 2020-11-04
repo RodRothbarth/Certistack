@@ -16,7 +16,7 @@
     <!-- Font-Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
-<body>
+<body onload="MostraPerfil()">
   <div class="container-large">
     <div class="nav">
         <div class="logo">
@@ -32,7 +32,7 @@
           <i class="fas fa-user-graduate fa-2x"></i>
           <span style="margin: 2px 7px;">Olá</span>
           <div class="dropdown">
-            <button class="dropbtn">Nome</button>
+            <button class="dropbtn" id="nome_usuario"></button>
             <div class="dropdown-content">
               <a onclick="Logout()" href="">Sair</a>
             </div>
@@ -68,32 +68,32 @@
           &nbsp;
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Nome da Instituição" readonly="readonly">
+          <input type="text" id="nome" class="form-control" placeholder="Nome da Instituição" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Email" readonly="readonly">
+          <input type="text" id="email" class="form-control" placeholder="Email" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="CNPJ" readonly="readonly">
+          <input type="text" id="cnpj" class="form-control" placeholder="CNPJ" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Telefone" readonly="readonly">
+          <input type="text" id="telefone" class="form-control" placeholder="Telefone" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Centro de Ensino" readonly="readonly">
+          <input type="text" id="centro" class="form-control" placeholder="Centro de Ensino" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Departamento" readonly="readonly">
+          <input type="text" id="departamento" class="form-control" placeholder="Departamento" readonly="readonly">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Site" readonly="readonly">
+          <input type="text" id="site" class="form-control" placeholder="Site" readonly="readonly">
         </div>
       </form>
     </div>
   </div>
   <div class="certificados" style="display: none;">
     <div class="cadastro-certificado">
-      <form>
+      <form onsubmit="return AdicionarCertificados()">
         <div class="title row">
           <h3 class="">Cadastro de Certificado</h3>
         </div>
@@ -104,10 +104,10 @@
           &nbsp;
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="CPF do Participante">
+          <input type="text" name="addCerti" class="cpf_certificado form-control" placeholder="CPF do Participante">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Nome do Evento">
+          <input type="text" name="addCerti" class="form-control" placeholder="Nome do Evento">
         </div>
         <div class="form-group">
           <select name="addCerti" class="form-control">
@@ -119,14 +119,17 @@
         </div>
         <div class="form-group">
           <label for="data-inicio">Início</label>
-          <input type="date" class="form-control" id="data-inicio" placeholder="Data de Início">
+          <input type="text" name="addCerti" class="form-control" id="data-inicio" placeholder="Data de Início">
         </div>
         <div class="form-group">
           <label for="data-fim">Fim</label>
-          <input type="date" class="form-control" id="data-fim" placeholder="Data de Final">
+          <input type="text" name="addCerti" class="form-control" id="data-fim" placeholder="Data de Final">
         </div>
         <div class="form-group">
-          <input type="number" class="form-control" placeholder="Número de Horas">
+          <input type="number" name="addCerti" class="form-control" placeholder="Número de Horas">
+        </div>
+        <div class="form-group">
+          <button type="submit">Cadastrar</button>
         </div>
       </form>
     </div>
@@ -140,14 +143,13 @@
             <th  data-coluna="tipo" data-ordem="decr" name="cert" >Tipo</th>
             <th  >Editar/Deletar</th>
         </tr>
-
+        <tbody id="tabela-certificados"></tbody>
       </table>
-      <div><img src="images/slider-images/img3.jpg" alt=""></div>
     </div>
   </div>
   <div class="participantes" style="display: none;">
       <div class="cadastro-participantes">
-        <form>
+        <form onsubmit="return CadastrarCliente()">
           <div class="title row">
             <h3>Cadastro de Participante</h3>
           </div>
@@ -198,13 +200,8 @@
       <div class="tabela-participantes">
         <table class="table table-dark">
           <tr>
-              <th  data-coluna="evento" data-ordem="decr" name="cert" >Evento</th>
-              <th  data-coluna="dataI" data-ordem="decr" name="cert" >Data Início</th>
-              <th  data-coluna="dataF" data-ordem="decr" name="cert" >Data Fim</th>
-              <th  data-coluna="horas" data-ordem="decr" name="cert" >Horas</th>
-              <th  data-coluna="tipo" data-ordem="decr" name="cert" >Tipo</th>
-              <th  >Editar/Deletar</th>
           </tr>
+          <tbody id="tabela-cliente"></tbody>
         </table>
       </div>
   </div>
@@ -215,7 +212,7 @@
   <div class="sub-footer">
     <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
   </div>
-  <script src="Lattes.js"></script>
+  <script src="CertiStack.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <!-- slick -->
   <script type="text/javascript" src="slick.min.js"></script>
