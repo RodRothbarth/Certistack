@@ -1,17 +1,19 @@
 // $(document).ready(function(){
 //     $(".documento").mask('99.999.999/9999-99');
-//     $(".cpf").mask('000.000.000-00');
-//     $(".numCelular").mask('(00) 00000-0000');
+//    
 //     $(".dataCertInicio").mask("00/00/0000");
 //     $(".dataCertFim").mask("00/00/0000");
 // });
 $(document).ready(function(){
     $(".cpf_certificado").mask('000.000.000-00');
+    $(".cpfParticipente").mask('000.000.000-00');
     $(".cnpj_login").mask('00.000.000/0000-00');
     $(".documento").mask('00.000.000/0000-00');
     $(".numCelular").mask('(00) 00000-0000');
-    $(".dataCertInicio").mask("00/00/0000");
-    $(".dataCertFim").mask("00/00/0000");
+    $(".telefoneCliente").mask('(00) 00000-0000')
+    $(".data-inicio").mask("00/00/0000");
+    $(".data-fim").mask("00/00/0000");
+    $(".data-nasc").mask("00/00/0000");
 })
 
 $(document).ready(function(){
@@ -81,7 +83,6 @@ function mostraCadastro(){
 }
 
 let dataClient = [];
-let arrayTabela = [];
 let dataBase = [];
 let dataCerti = []; 
 let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
@@ -100,7 +101,7 @@ function Cliente(name, email, documento, telefone, dataNasc, instituicao, area, 
     this.id = id;
 };
 
-function User(name, email, senha, telefone, documento, centro_ensino, departamento, tipo, site, certificados){
+function User(name, email, senha, telefone, documento, centro_ensino, departamento, tipo, site, id){
     this.nome = name;
     this.email = email;
     this.senha = senha;
@@ -110,7 +111,7 @@ function User(name, email, senha, telefone, documento, centro_ensino, departamen
     this.departamento = departamento;
     this.atuacao = tipo;
     this.site = site;
-    this.certificados = certificados;
+    this.id = id;
 };
 
 function Certificado(documento, evento, tipo, dataI, dataF, horas, id){
@@ -156,32 +157,52 @@ function ValidPass(){
     };
 };
 
-function ChamarCnpj(){ //chama a função para validar o numero inserido de CNPJ			
-    let cnpj = document.getElementById("documento").value;
+function ChamarCnpj(){			
+    let cnpj = document.getElementById("cnpj_cadastro").value;
     cnpj = cnpj.replace(".", "");
-    cnpj = cnpj.replace(/[^\d]+/g,''); //transforma a mascara para fazer corretamente a checagem de CNPJ
+    cnpj = cnpj.replace(/[^\d]+/g,'');
     cnpj = cnpj.replace("-", "");
-    ValidarCNPJ(cnpj);
+    ValidarCNPJ(cnpj)
     if (ValidarCNPJ(cnpj) !== true){
-        alert("CNPJ Invalido!");
-        cnpj = "";
-    };
-};
+        alert("CNPJ Invalido!")
+        alert(cnpj)
+        cnpj = ""
+    }
+}
+
+function ChamarCnpjLogin(){			
+    let cnpj = document.getElementById("cnpj_login").value;
+    cnpj = cnpj.replace(".", "");
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+    cnpj = cnpj.replace("-", "");
+    ValidarCNPJ(cnpj)
+    if (ValidarCNPJ(cnpj) !== true){
+        alert("CNPJ Invalido!")
+        alert(cnpj)
+        cnpj = ""
+    }
+}
 
 function ValidarCNPJ(cnpj) {
+ 
     if(cnpj == '') return false;
      
     if (cnpj.length !== 14) return false;
  
     // Elimina CNPJs invalidos conhecidos
-    if (cnpj == "00000000000000" || cnpj == "11111111111111" || 
-        cnpj == "22222222222222" || cnpj == "33333333333333" || 
-        cnpj == "44444444444444" || cnpj == "55555555555555" || 
-        cnpj == "66666666666666" || cnpj == "77777777777777" || 
-        cnpj == "88888888888888" || cnpj == "99999999999999") return false;
+    if (cnpj == "00000000000000" || 
+        cnpj == "11111111111111" || 
+        cnpj == "22222222222222" || 
+        cnpj == "33333333333333" || 
+        cnpj == "44444444444444" || 
+        cnpj == "55555555555555" || 
+        cnpj == "66666666666666" || 
+        cnpj == "77777777777777" || 
+        cnpj == "88888888888888" || 
+        cnpj == "99999999999999") return false;
          
     // Valida DVs
-    tamanho = cnpj.length - 2;
+    tamanho = cnpj.length - 2
     numeros = cnpj.substring(0,tamanho);
     digitos = cnpj.substring(tamanho);
     soma = 0;
@@ -190,7 +211,7 @@ function ValidarCNPJ(cnpj) {
       soma += numeros.charAt(tamanho - i) * pos--;
       if (pos < 2)
             pos = 9;
-    };
+    }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(0)) return false;
          
@@ -205,17 +226,18 @@ function ValidarCNPJ(cnpj) {
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(1)) return false;
            
-    return true;    
+    return true;
+    
 }
 
 function Validation(){//valida o login para entrada no perfil do usuario ou cliente desejado
     dataBase = JSON.parse(localStorage.getItem('user'));
-    let usern = document.getElementById("documento").value;
+    let usern = document.getElementById("cnpj_login").value;
     let pssw = document.getElementById("senha").value;
-    // usern = usern.replace(".", "");
-    // usern = usern.replace(/[^\d]+/g,'');
-    // usern = usern.replace("-", "");
+
     for(let i = 0; i < dataBase.length; i++){
+        dataBase[i].id = dataBase.indexOf(dataBase[i])
+        localStorage.setItem("user", JSON.stringify(dataBase));
         if(dataBase[i].documento === usern){
             if(dataBase[i].senha === pssw){
                 localStorage.setItem("online", JSON.stringify(dataBase[i]));
@@ -230,16 +252,38 @@ function Validation(){//valida o login para entrada no perfil do usuario ou clie
     };
 };
 
-function MostraPerfil(){
+function PerfilOnline(){
+    dataBase = JSON.parse(localStorage.getItem("user"))
     let info = JSON.parse(localStorage.getItem("online"))
-    document.getElementById("nome").value = info.nome;
-    document.getElementById("email").value = info.email;
-    document.getElementById("cnpj").value = info.documento;
-    document.getElementById("telefone").value = info.telefone;
-    document.getElementById("centro").value = info.centro_ensino;
-    document.getElementById("departamento").value = info.departamento;
-    document.getElementById("site").value = info.site;
-    document.getElementById("nome_usuario").innerHTML = info.departamento;
+    for(let i = 0; i < dataBase.length; i++){
+        if(dataBase[i].documento === info.documento){
+            document.getElementById("nome").value = dataBase[i].nome;
+            document.getElementById("email").value = dataBase[i].email;
+            document.getElementById("cnpj").value = dataBase[i].documento;
+            document.getElementById("telefone").value = dataBase[i].telefone;
+            document.getElementById("centro").value = dataBase[i].centro_ensino;
+            document.getElementById("departamento").value = dataBase[i].departamento;
+            document.getElementById("site").value = dataBase[i].site;
+            document.getElementById("nome_usuario").innerHTML = dataBase[i].departamento;
+        };
+    };    
+};
+
+function EditaPerfil(){
+    dataBase = JSON.parse(localStorage.getItem("user"))
+    let info = JSON.parse(localStorage.getItem("online"))
+    for(let i = 0; i < dataBase.length; i++){
+        if(dataBase[i].documento === info.documento){
+           dataBase[i].email = document.getElementById("email").value;
+           dataBase[i].documento = document.getElementById("cnpj").value;
+           dataBase[i].telefone = document.getElementById("telefone").value;
+           dataBase[i].centro_ensino = document.getElementById("centro").value;
+           dataBase[i].departamento = document.getElementById("departamento").value;
+           dataBase[i].site = document.getElementById("site").value;
+           dataBase[i].departamento = document.getElementById("nome_usuario").innerHTML;
+           localStorage.setItem('user', JSON.stringify(dataBase))
+        };
+    };    
 };
 
 function TestaCPF(strCPF) {
@@ -262,14 +306,15 @@ function TestaCPF(strCPF) {
     if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
     return true;    
 }
-// ambas as funçoes para testar a validação dos cpfs inceridos.
-function Chamar(){
+// ambas as funçoes para testar a validação dos cpfs inseridos.
+function ValidarCpf(){
     var strCPF = document.getElementById("cpf").value;
+    strCPF = strCPF.replace(".", "");
+    strCPF = strCPF.replace(/[^\d]+/g,'');
     TestaCPF(strCPF);
-    if (TestaCPF(strCPF) == true) {
-        alert("Você digitou um CPF Válido!");
-    }else{
+    if (TestaCPF(strCPF) !== true) {
         alert("Você digitou um CPF Inválido!");
+        strCPF = ''
     }; 
 };
 
@@ -282,24 +327,26 @@ function FormularioCertificados(){ //constroi o objeto para utilizar na criaçã
 
 function AdicionarCertificados(){ //adiciona certificados 
     let certificados = FormularioCertificados();
-    if (localStorage.getItem('certificate') === null){
+    if (localStorage.getItem('certificate') === null){ //se o localStorage nao existir, cria-se um
         dataCerti.push(certificados)
         localStorage.setItem('certificate', JSON.stringify(dataCerti));   
         alert("Certificado adicionado com Sucesso!");    
-    }else{
+    }else{ //se ele existir, recupera a informação e adiciona a nova
         dataCerti = JSON.parse(localStorage.getItem('certificate')); 
         dataCerti.push(certificados) ;
         localStorage.setItem('certificate', JSON.stringify(dataCerti));   
         alert("Certificado adicionado com Sucesso!");
     };              
 };
+
 function getDataCertificate(){ //trasforma os objetos vindos do localStorage com um array para formar corretamente as tabelas.
     JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
-        dataCerti.push((info))});
+        dataCerti.push((info))
+    });
     return dataCerti;
-};
+}
 
-$('th').on('click', function(){
+$('th').on('click', function(){ //permite que a tabela seja organizada pela ordem desejada
     let coluna = $(this).data('coluna');
     let ordem = $(this).data('ordem');
 
@@ -310,20 +357,16 @@ $('th').on('click', function(){
         $(this).data('ordem', "decr")
         dataCerti = dataCerti.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
     }  
-<<<<<<< HEAD:js/CertiStack.js
-    tabela(dataCerti)  
-=======
-    tabelaCertificado(dataCerti)  
->>>>>>> 33529474faebee736357b87c54879a3cc73ec21d:CertiStack.js
-});
+    Criatabela(dataCerti)  
+})
 
-tabelaCertificado(getDataCertificate());
+Criatabela(getDataCertificate())
 
-function tabela(dados){
-    let tabela = document.getElementById("tabela-certificados");
-    tabela.innerHTML = "";
+function Criatabela(dados){ // função que cria a tabela para os certificados
+    let tabela = document.getElementById("tabelaCertificados")
+    tabela.innerHTML = ""
     for(var i=0; i< dados.length; i++){
-        dados[i].id = `${i}`;
+        dados[i].id = `${i}`
     
        var row = `<tr class="linha-${dados[i].id}"> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].documento}</td> 
@@ -342,135 +385,130 @@ function tabela(dados){
                         </td> 
                          
                    </tr>`
-        $('#tabela').append(row);
+        tabela.innerHTML += row
         
-        $(`#edita-${dados[i].id}`).on('click', EditarLinha);
-        $(`#deleta-${dados[i].id}`).on('click', DeletaLinha);
-        $(`#confirma-${dados[i].id}`).on('click', ConfirmaDel);
-        $(`#cancela-${dados[i].id}`).on('click', CancelaDel);
-        $(`#cancEdit-${dados[i].id}`).on('click', CancelaEdit);
-        $(`#edit-${dados[i].id}`).on('click', ConfirmaEdicao);
-    };
-;}
+        $(`#deleta-${dados[i].id}`).on('click', DeletaLinha)
+        $(`#edita-${dados[i].id}`).on('click', EditarLinha)
+        $(`#confirma-${dados[i].id}`).on('click', ConfirmaEdicao)
+        $(`#cancela-${dados[i].id}`).on('click', CancelaDel)
+        $(`#cancEdit-${dados[i].id}`).on('click', CancelaEdit)
+        $(`#edit-${dados[i].id}`).on('click', ConfirmaEdicao)
+    }
+}
 
-function EditarLinha(){
-    let idLinha = $(this).data('id');
-    let editar = $(`#edita-${idLinha}`);
-    let deletar = $(`#deleta-${idLinha}`);
-    let cancelar = $(`#cancEdit-${idLinha}`);
-    let salvar = $(`#edit-${idLinha}`);
-    let cpf= arrayTabela[`${idLinha}`].documento;
-    let evento = arrayTabela[`${idLinha}`].evento;
-    let dataI = arrayTabela[`${idLinha}`].dataIni;
-    let dataF = arrayTabela[`${idLinha}`].dataFim;
-    let horas = arrayTabela[`${idLinha}`].horas;
-    let tipo = arrayTabela[`${idLinha}`].tipo;
+function EditarLinha(){ //abre a linha de edição para os certificados
+    let idLinha = $(this).data('id')
+    let editar = $(`#edita-${idLinha}`)
+    let deletar = $(`#deleta-${idLinha}`)
+    let cancelar = $(`#cancEdit-${idLinha}`)
+    let salvar = $(`#edit-${idLinha}`)
+    let cpf= dataCerti[`${idLinha}`].documento
+    let evento = dataCerti[`${idLinha}`].evento
+    let dataI = dataCerti[`${idLinha}`].dataIni
+    let dataF = dataCerti[`${idLinha}`].dataFim
+    let horas = dataCerti[`${idLinha}`].horas
+    let tipo = dataCerti[`${idLinha}`].tipo    
      
-    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${cpf}">`);
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${evento}">`);
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio" "type="text" value="${dataI}">`).mask('00/00/0000');
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim" type="text" value="${dataF}">`).mask('00/00/0000');
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='horas-${idLinha}' type="number" value="${horas}">`);
-    $(this).parents('tr').find(`td:eq(5)`).html(`<input id='tipo-${idLinha}' type="text" value="${tipo}">`);
-    editar.addClass('hidden');
-    deletar.addClass('hidden');
-    cancelar.removeClass('hidden');
-    salvar.removeClass('hidden');
-};
+    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${cpf}">`)
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${evento}">`)
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio" "type="text" value="${dataI}">`).mask('00/00/0000')
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim" type="text" value="${dataF}">`).mask('00/00/0000')
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='horas-${idLinha}' type="number" value="${horas}">`)
+    $(this).parents('tr').find(`td:eq(5)`).html(`<input id='tipo-${idLinha}' type="text" value="${tipo}">`)
+    
+    editar.addClass('hidden')
+    deletar.addClass('hidden')
+    cancelar.removeClass('hidden')
+    salvar.removeClass('hidden')
+}
 
-function ConfirmaEdicao(){
+function ConfirmaEdicao(){//confirma a edição feita nas linhas da table
     let idLinha = $(this).data('id');
     let editar = $(`#edita-${idLinha}`);
     let deletar = $(`#deleta-${idLinha}`);
     let cancelar = $(`#cancEdit-${idLinha}`);
     let salvar = $(`#edit-${idLinha}`);
-    let cpf =  document.getElementById(`cpf-${idLinha}`).value;
-    let evento =  document.getElementById(`evento-${idLinha}`).value;
-    let dataI =  document.getElementById(`dataI-${idLinha}`).value;
-    let dataF =  document.getElementById(`dataF-${idLinha}`).value;
-    let horas =  document.getElementById(`horas-${idLinha}`).value;
-    let tipo =  document.getElementById(`tipo-${idLinha}`).value;
+        
+    let cpf =  document.getElementById(`cpf-${idLinha}`).value
+    let evento =  document.getElementById(`evento-${idLinha}`).value
+    let dataI =  document.getElementById(`dataI-${idLinha}`).value
+    let dataF =  document.getElementById(`dataF-${idLinha}`).value
+    let horas =  document.getElementById(`horas-${idLinha}`).value
+    let tipo =  document.getElementById(`tipo-${idLinha}`).value
 
-    arrayTabela[`${idLinha}`].documento = cpf;
-    arrayTabela[`${idLinha}`].evento = evento;
-    arrayTabela[`${idLinha}`].dataIni = dataI;
-    arrayTabela[`${idLinha}`].dataFim = dataF;
-    arrayTabela[`${idLinha}`].horas = horas;
-    arrayTabela[`${idLinha}`].tipo = tipo;
+    dataCerti[`${idLinha}`].documento = cpf
+    dataCerti[`${idLinha}`].evento = evento
+    dataCerti[`${idLinha}`].dataIni = dataI
+    dataCerti[`${idLinha}`].dataFim = dataF
+    dataCerti[`${idLinha}`].horas = horas
+    dataCerti[`${idLinha}`].tipo = tipo
 
-    localStorage.setItem('certificate', JSON.stringify(arrayTabela));
-    editar.removeClass('hidden');
-    deletar.removeClass('hidden');
-    cancelar.addClass('hidden');
-    salvar.addClass('hidden');
-};
+    localStorage.setItem('certificate', JSON.stringify(dataCerti))
+    editar.removeClass('hidden')
+    deletar.removeClass('hidden')
+    cancelar.addClass('hidden')
+    salvar.addClass('hidden')
+}
 
-function CancelaEdit(){
-    let idLinha = $(this).data('id');
-    let editar = $(`#edita-${idLinha}`);
-    let deletar = $(`#deleta-${idLinha}`);
-    let cancelar = $(`#cancEdit-${idLinha}`);
-    let confirmar = $(`#confimEdit-${idLinha}`);
-    editar.removeClass('hidden');
-    deletar.removeClass('hidden');
-    cancelar.addClass('hidden');
-    confirmar.addClass('hidden');
-    //location.reload()
-};
+function CancelaEdit(){ //cancela a opção de edição
+    let idLinha = $(this).data('id')
+    let editar = $(`#edita-${idLinha}`)
+    let deletar = $(`#deleta-${idLinha}`)
+    let cancelar = $(`#cancEdit-${idLinha}`)
+    let confirmar = $(`#edit-${idLinha}`)
+    
+    editar.removeClass('hidden')
+    deletar.removeClass('hidden')
+    cancelar.addClass('hidden')
+    confirmar.addClass('hidden')
+    
+}
 
-function DeletaLinha(){
-    let idLinha = $(this).data("id");
-    let editar = $(`#edita-${idLinha}`);
-    let deletar = $(`#deleta-${idLinha}`);
-    let cancelar = $(`#cancela-${idLinha}`);
-    let confirmar = $(`#confirma-${idLinha}`);
+function DeletaLinha(){ // ldeleta as informação do certificado desejado
+    let idLinha = $(this).data("id")
+    let editar = $(`#edita-${idLinha}`)
+    let deletar = $(`#deleta-${idLinha}`)
+    let cancelar = $(`#cancela-${idLinha}`)
+    let confirmar = $(`#confirma-${idLinha}`)
+
     editar.addClass('hidden');
     deletar.addClass('hidden');
     cancelar.removeClass('hidden');
-    confirmar.removeClass('hidden');    
-};
+    confirmar.removeClass('hidden');   
+}
 
-function ConfirmaDel(){
-    let idLinha = $(this).data("id");
-    let linha = $(`.linha-${idLinha}`);
-    arrayTabela.splice(`${idLinha}`,1);
-    localStorage.setItem('certificate', JSON.stringify(arrayTabela));  
-    linha.remove();
-};
+function ConfirmaDel(){ // confirma a deleção do item da tabela
+    let idLinha = $(this).data("id")
+    let linha = $(`.linha-${idLinha}`)
+    
+    dataCerti.splice(`${idLinha}`,1)
+    localStorage.setItem('certificate', JSON.stringify(dataCerti))  
+    linha.remove()
+}
 
-function CancelaDel(){
-    let idLinha = $(this).data("id");
-    let editar = $(`#edita-${idLinha}`);
-    let deletar = $(`#deleta-${idLinha}`);
-    let cancelar = $(`#cancela-${idLinha}`);
-    let confirmar = $(`#confirma-${idLinha}`);
-    editar.removeClass('hidden');
-    deletar.removeClass('hidden');
-    cancelar.addClass('hidden');
-    confirmar.addClass('hidden');  
-};
-
-function RemoveCert(){
-   let confirm = prompt("Digite o nome do evento para confirmar:");
-    for (let i=0; i < dataCerti.length; i++){       
-        if(Object.keys(dataCerti[i].evento) === confirm){
-            dataCerti.splice(dataCerti[i],1);
-            alert(dataCerti);
-        };
-    };   
-};
+function CancelaDel(){ // cancela a atribuição de deleção do item da tabela
+    let idLinha = $(this).data("id")
+    let editar = $(`#edita-${idLinha}`)
+    let deletar = $(`#deleta-${idLinha}`)
+    let cancelar = $(`#cancela-${idLinha}`)
+    let confirmar = $(`#confirma-${idLinha}`)
+    
+    editar.removeClass('hidden')
+    deletar.removeClass('hidden')
+    cancelar.addClass('hidden')
+    confirmar.addClass('hidden')  
+}
 
 function CadastrarCliente(){ //sistema para cadastrar um novo usuario.
-    let cliente = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;});
-    let nasc = new Date(user[5].split('-').join('/')).toLocaleDateString('pt-br')    
+    let cliente = Array.from(document.getElementsByName("cadastroParticipante")).map(function(element){return element.value;});    
         
-    if (localStorage.getItem("cliente") === null ){
-        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],nasc,cliente[6],cliente[7]));
+    if (localStorage.getItem("cliente") === null ){ //cria um localStorage cliente se inexistente
+        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],cliente[5],cliente[6],cliente[7]));
         localStorage.setItem("cliente", JSON.stringify(dataClient));
         alert("Cadastro Realizado com Sucesso!");
-    }else{
+    }else{ // adiciona novos parametros no localStorage cliente
         dataClient = JSON.parse(localStorage.getItem("cliente"))
-        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],nasc,cliente[6],cliente[7]));
+        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],cliente[5],cliente[6],cliente[7]));
         localStorage.setItem("cliente", JSON.stringify(dataClient));
         alert("Cadastro Realizado com Sucesso!");
     }        
@@ -483,7 +521,7 @@ function getDataCliente(){ //trasforma os objetos vindos do localStorage com um 
     return dataClient;
 }
 
-$('th').on('click', function(){
+$('th').on('click', function(){ // organiza a tabela 
     let coluna = $(this).data('coluna');
     let ordem = $(this).data('ordem');
 
@@ -494,12 +532,12 @@ $('th').on('click', function(){
         $(this).data('ordem', "decr")
         dataClient = dataClient.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
     }  
-    tabela(dataClient)  
+    tabelaParticipantes(dataClient)  
 })
 
 tabelaParticipantes(getDataCliente())
 
-function tabela(dados){
+function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
     let tabela = document.getElementById("tabela-cliente")
     tabela.innerHTML = ""
     for(var i=0; i< dados.length; i++){
@@ -508,40 +546,40 @@ function tabela(dados){
        var row = `<tr class="linha-${dados[i].id}"> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].nome}</td> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].documento}</td> 
-                        <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].email}</td> 
-                        <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].telefone}</td> 
+                        <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].email}</td>
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].dataNasc}</td> 
+                        <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].telefone}</td>  
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].instituicao}</td> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].area}</td> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].lattes}</td> 
                          
                         <td>
-                            <img id="edita-${dados[i].id}"  src='/imagens/edit.png'  class='' data-id="${dados[i].id}">
-                            <img id="deleta-${dados[i].id}"  src='/imagens/lixo.png' class='' data-id="${dados[i].id}">
-                            <img id="confirma-${dados[i].id}"  src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}"> 
-                            <img id="cancela-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="cancEdit-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="edit-${dados[i].id}" src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}">  
+                            <img id="editCliente-${dados[i].id}"  src='/imagens/edit.png'  class='' data-id="${dados[i].id}">
+                            <img id="deletaCliente-${dados[i].id}"  src='/imagens/lixo.png' class='' data-id="${dados[i].id}">
+                            <img id="confirmaDelCliente-${dados[i].id}"  src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}"> 
+                            <img id="cancelaDelCliente-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
+                            <img id="cancEditCliente-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
+                            <img id="ConfirmaEditCliente-${dados[i].id}" src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}">  
                         </td> 
                          
                    </tr>`
         tabela.innerHTML += row
 
-        $(`#edita-${dados[i].id}`).on('click', EditarCliente)
-        $(`#edit-${dados[i].id}`).on('click', ConfirmaCliente)
-        $(`#cancEdit-${dados[i].id}`).on('click', CancelaEditCliente)
-        $(`#deleta-${dados[i].id}`).on('click', DeletaCliente)
-        $(`#confirma-${dados[i].id}`).on('click', ConfirmaDelCliente)
-        $(`#cancela-${dados[i].id}`).on('click', CancelaDelCliente) 
+        $(`#editCliente-${dados[i].id}`).on('click', EditarCliente)
+        $(`#ConfirmaEditCliente-${dados[i].id}`).on('click', ConfirmaCliente)
+        $(`#cancEditCliente-${dados[i].id}`).on('click', CancelaEditCliente)
+        $(`#deletaCliente-${dados[i].id}`).on('click', DeletaCliente)
+        $(`#confirmaDelCliente-${dados[i].id}`).on('click', ConfirmaDelCliente)
+        $(`#cancelaDelCliente-${dados[i].id}`).on('click', CancelaDelCliente) 
     }
 }
 
 function EditarCliente(){
     let idLinha = $(this).data('id')
-    let editar = $(`#edita-${idLinha}`)
-    let deletar = $(`#deleta-${idLinha}`)
-    let cancelar = $(`#cancEdit-${idLinha}`)
-    let salvar = $(`#edit-${idLinha}`)
+    let editar = $(`#editCliente-${idLinha}`)
+    let deletar = $(`#deletaCliente-${idLinha}`)
+    let cancelar = $(`#cancEditCliente-${idLinha}`)
+    let salvar = $(`#ConfirmaEditCliente-${idLinha}`)
     let nome = dataClient[`${idLinha}`].nome;
     let email = dataClient[`${idLinha}`].email;
     let documento = dataClient[`${idLinha}`].documento;
@@ -551,11 +589,11 @@ function EditarCliente(){
     let area = dataClient[`${idLinha}`].area;
     let lattes = dataClient[`${idLinha}`].lattes;     
      
-    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${nome}">`)
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${email}">`)
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='documento-${idLinha}' class="dataCertInicio" "type="text" value="${documento}">`)
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='telefone-${idLinha}' class="dataCertFim" type="text" value="${telefone}">`)
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='dataNasc-${idLinha}' type="number" value="${dataNasc}">`).mask('00/00/0000')
+    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='nome-${idLinha}' type="text" value="${nome}">`)
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='email-${idLinha}' type="text" value="${email}">`)
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='documento-${idLinha}'  "type="text" value="${documento}">`)
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='telefone-${idLinha}'  type="text" value="${telefone}">`).mask('(00) 00000-0000') //ver o pq nao funcona quando coloco os dois nasc e telefone como 
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')// number mas quando esta apenas um aquele funciona
     $(this).parents('tr').find(`td:eq(5)`).html(`<input id='instituicao-${idLinha}' type="text" value="${instituicao}">`)
     $(this).parents('tr').find(`td:eq(6)`).html(`<input id='area-${idLinha}' type="text" value="${area}">`)
     $(this).parents('tr').find(`td:eq(7)`).html(`<input id='lattes-${idLinha}' type="text" value="${lattes}">`)
@@ -568,10 +606,10 @@ function EditarCliente(){
 
 function ConfirmaCliente(){
     let idLinha = $(this).data('id');
-    let editar = $(`#edita-${idLinha}`);
-    let deletar = $(`#deleta-${idLinha}`);
-    let cancelar = $(`#cancEdit-${idLinha}`);
-    let salvar = $(`#edit-${idLinha}`);
+    let editar = $(`#editCliente-${idLinha}`);
+    let deletar = $(`#deletaCliente-${idLinha}`);
+    let cancelar = $(`#cancEditCliente-${idLinha}`);
+    let salvar = $(`#ConfirmaEditCliente-${idLinha}`);
         
     let nome = document.getElementById(`nome-${idLinha}`).value;
     let email = document.getElementById(`email-${idLinha}`).value;
@@ -600,24 +638,23 @@ function ConfirmaCliente(){
 
 function CancelaEditCliente(){
     let idLinha = $(this).data('id')
-    let editar = $(`#edita-${idLinha}`)
-    let deletar = $(`#deleta-${idLinha}`)
-    let cancelar = $(`#cancEdit-${idLinha}`)
-    let confirmar = $(`#confimEdit-${idLinha}`)
+    let editar = $(`#editCliente-${idLinha}`)
+    let deletar = $(`#deletaCliente-${idLinha}`)
+    let cancelar = $(`#cancEditCliente-${idLinha}`)
+    let confirmar = $(`#ConfirmaEditCliente-${idLinha}`)
     
     editar.removeClass('hidden')
     deletar.removeClass('hidden')
     cancelar.addClass('hidden')
     confirmar.addClass('hidden')
-    //location.reload()
 }
 
 function DeletaCliente(){
     let idLinha = $(this).data("id")
-    let editar = $(`#edita-${idLinha}`)
-    let deletar = $(`#deleta-${idLinha}`)
-    let cancelar = $(`#cancela-${idLinha}`)
-    let confirmar = $(`#confirma-${idLinha}`)
+    let editar = $(`#editCliente-${idLinha}`)
+    let deletar = $(`#deletaCliente-${idLinha}`)
+    let cancelar = $(`#cancelaDelCliente-${idLinha}`)
+    let confirmar = $(`#confirmaDelCliente-${idLinha}`)
     
     editar.addClass('hidden')
     deletar.addClass('hidden')
@@ -629,17 +666,17 @@ function ConfirmaDelCliente(){
     let idLinha = $(this).data("id")
     let linha = $(`.linha-${idLinha}`)
     
-    arrayTabela.splice(`${idLinha}`,1)
+    dataCerti.splice(`${idLinha}`,1)
     localStorage.setItem('cliente', JSON.stringify(dataClient))  
     linha.remove()
 }
 
 function CancelaDelCliente(){
     let idLinha = $(this).data("id")
-    let editar = $(`#edita-${idLinha}`)
-    let deletar = $(`#deleta-${idLinha}`)
-    let cancelar = $(`#cancela-${idLinha}`)
-    let confirmar = $(`#confirma-${idLinha}`)
+    let editar = $(`#editCliente-${idLinha}`)
+    let deletar = $(`#deletaCliente-${idLinha}`)
+    let cancelar = $(`#cancelaDelCliente-${idLinha}`)
+    let confirmar = $(`#confirmaDelCliente-${idLinha}`)
     
     editar.removeClass('hidden')
     deletar.removeClass('hidden')
@@ -649,5 +686,7 @@ function CancelaDelCliente(){
 
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.removeItem("online");
-    location.href="/html/cadastro_login.html"; //ou window.open("home.html") para abrir em uma nova aba
+    let url = 'cadastro-login.html';
+    location.href="cadastro-login.html"; //ou window.open("home.html") para abrir em uma nova aba
+    history.pushState(null, null, url)
 };

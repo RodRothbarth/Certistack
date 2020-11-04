@@ -23,6 +23,11 @@ body, html{
     margin: 0;
     padding: 0;
 }
+
+.hidden{
+    display:none;
+}
+
 .container{
     /* background-color: #1E1E1E; */
     background-color: #F5F5F5;
