@@ -1,15 +1,84 @@
+// $(document).ready(function(){
+//     $(".documento").mask('99.999.999/9999-99');
+//     $(".cpf").mask('000.000.000-00');
+//     $(".numCelular").mask('(00) 00000-0000');
+//     $(".dataCertInicio").mask("00/00/0000");
+//     $(".dataCertFim").mask("00/00/0000");
+// });
 $(document).ready(function(){
-    $(".cnpj").mask('00.000.000/0000-00');
-    $(".cpf").mask('000.000.000-00');
+    $(".cpf_certificado").mask('000.000.000-00');
+    $(".cnpj_login").mask('00.000.000/0000-00');
+    $(".documento").mask('00.000.000/0000-00');
     $(".numCelular").mask('(00) 00000-0000');
     $(".dataCertInicio").mask("00/00/0000");
     $(".dataCertFim").mask("00/00/0000");
+})
+
+$(document).ready(function(){
+    $('.carousel').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        fade: true,
+        dots: true
+    });
 });
+
+function mostraHome(){
+    $(".container-perfil").hide();
+    $(".certificados").hide();
+    $(".participantes").hide();
+    $(".home").show();
+}
+
+function mostraWelcome(){
+    $(".login").hide();
+    $(".cadastro").hide();
+    $(".apresentacao").show();
+    $(".seta").hide();
+}
+
+function mostraLogin(){
+    $(".seta").show();
+    $(".login").show();
+    $(".apresentacao").hide();
+}
+
+function mostraCadastro(){
+    $(".seta").show();
+    $(".cadastro").show();
+    $(".apresentacao").hide();
+}
+
+function mostraPerfil(){
+    $(".certificados").hide();
+    $(".participantes").hide();
+    $(".home").hide();
+    $(".container-perfil").show();
+}
+
+function mostraCertificados(){
+    $(".container-perfil").hide();
+    $(".participantes").hide();
+    $(".home").hide();
+    $(".certificados").show();
+}
+
+function mostraParticipantes(){
+    $(".container-perfil").hide();
+    $(".certificados").hide();
+    $(".home").hide();
+    $(".participantes").show();
+}
 
 function mostraCadastro(){
     $(".cadastro").show();
+    $(".seta").show();
+    $(".apresentacao").hide();
     $(".login").hide();
-};
+}
 
 let dataClient = [];
 let arrayTabela = [];
@@ -31,20 +100,23 @@ function Cliente(name, email, documento, telefone, dataNasc, instituicao, area, 
     this.id = id;
 };
 
-function User(name, email, senha, documento, telefone, area, site, certificados){
+function User(name, email, senha, telefone, documento, centro_ensino, departamento, tipo, site, certificados){
     this.nome = name;
     this.email = email;
     this.senha = senha;
-    this.documento = documento;
     this.telefone = telefone;
-    this.atuacao = area;
+    this.documento = documento;
+    this.centro_ensino = centro_ensino;
+    this.departamento = departamento;
+    this.atuacao = tipo;
     this.site = site;
     this.certificados = certificados;
 };
 
-function Certificado(evento, dataI, dataF, horas, tipo, id){
+function Certificado(documento, evento, tipo, dataI, dataF, horas, id){
+    this.documento = documento;
     this.evento = evento;
-    this.dataIni = dataI
+    this.dataIni = dataI;
     this.dataFim = dataF;
     this.horas = horas;
     this.tipo = tipo;
@@ -53,7 +125,7 @@ function Certificado(evento, dataI, dataF, horas, tipo, id){
 
 function FormularioUsuario(){//cria o objeto a ser utilizado no cadastro
     let user = Array.from(document.getElementsByName("cadastro")).map(function(element){return element.value;}); 
-    let form = new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8]); //mexer!!!
+    let form = new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9]); //mexer!!!
         return form; 
 };
 
@@ -138,14 +210,16 @@ function ValidarCNPJ(cnpj) {
 
 function Validation(){//valida o login para entrada no perfil do usuario ou cliente desejado
     dataBase = JSON.parse(localStorage.getItem('user'));
-    let usern = document.getElementById("documento");
-    let pssw = document.getElementById("senha");
-
+    let usern = document.getElementById("documento").value;
+    let pssw = document.getElementById("senha").value;
+    // usern = usern.replace(".", "");
+    // usern = usern.replace(/[^\d]+/g,'');
+    // usern = usern.replace("-", "");
     for(let i = 0; i < dataBase.length; i++){
-        if(dataBase[i].documento === usern.value){
-            if(dataBase[i].senha === pssw.value){
+        if(dataBase[i].documento === usern){
+            if(dataBase[i].senha === pssw){
                 localStorage.setItem("online", JSON.stringify(dataBase[i]));
-                location.href="/html/home.html";
+                location.href="home.html";
             }else{
                 alert("Senha Incorreta!");
             };
@@ -162,8 +236,10 @@ function MostraPerfil(){
     document.getElementById("email").value = info.email;
     document.getElementById("cnpj").value = info.documento;
     document.getElementById("telefone").value = info.telefone;
-    document.getElementById("instituição").value = info.instituicao;
-    document.getElementById("site").value = info.lattes;
+    document.getElementById("centro").value = info.centro_ensino;
+    document.getElementById("departamento").value = info.departamento;
+    document.getElementById("site").value = info.site;
+    document.getElementById("nome_usuario").innerHTML = info.departamento;
 };
 
 function TestaCPF(strCPF) {
@@ -200,7 +276,7 @@ function Chamar(){
 function FormularioCertificados(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
     let dadosForm = Array.from(document.getElementsByName("addCerti")).map(function(element){
         return element.value;});
-    let form = new Certificado(dadosForm[0], dadosForm[1], dadosForm[2], dadosForm[3], dadosForm[4],dadosForm[5]);
+    let form = new Certificado(dadosForm[0], dadosForm[1], dadosForm[2], dadosForm[3], dadosForm[4], dadosForm[5], dadosForm[6]);
     return form; 
 };
 
@@ -217,11 +293,10 @@ function AdicionarCertificados(){ //adiciona certificados
         alert("Certificado adicionado com Sucesso!");
     };              
 };
-
 function getDataCertificate(){ //trasforma os objetos vindos do localStorage com um array para formar corretamente as tabelas.
     JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
-        array.push((info))});
-    return arrayTabela;
+        dataCerti.push((info))});
+    return dataCerti;
 };
 
 $('th').on('click', function(){
@@ -230,18 +305,18 @@ $('th').on('click', function(){
 
     if(ordem == 'decr'){
         $(this).data('ordem', "cresc")
-        arrayTabela = arrayTabela.sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
+        dataCerti = dataCerti.sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
     }else{
         $(this).data('ordem', "decr")
-        arrayTabela = arrayTabela.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
+        dataCerti = dataCerti.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
     }  
-    tabela(arrayTabela)  
+    tabelaCertificado(dataCerti)  
 });
 
-tabela(getDataCertificate());
+tabelaCertificado(getDataCertificate());
 
 function tabela(dados){
-    let tabela = document.getElementById("tabela");
+    let tabela = document.getElementById("tabela-certificados");
     tabela.innerHTML = "";
     for(var i=0; i< dados.length; i++){
         dados[i].id = `${i}`;
@@ -418,10 +493,10 @@ $('th').on('click', function(){
     tabela(dataClient)  
 })
 
-tabela(getDataCliente())
+tabelaParticipantes(getDataCliente())
 
 function tabela(dados){
-    let tabela = document.getElementById("tabela")
+    let tabela = document.getElementById("tabela-cliente")
     tabela.innerHTML = ""
     for(var i=0; i< dados.length; i++){
         dados[i].id = `${i}`

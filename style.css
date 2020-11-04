@@ -145,7 +145,7 @@ body, html{
 .container-large .nav .itens .a-efeito:hover:before{
     background:  #0AC5A8;
     width: 100%;
-    opacity: 0.3;
+    z-index: -1;
  }
  .container-large .nav .itens .a-efeito:hover:after{
     background:  #0AC5A8;
