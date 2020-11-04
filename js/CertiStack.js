@@ -220,8 +220,8 @@ function AdicionarCertificados(){ //adiciona certificados
 
 function getDataCertificate(){ //trasforma os objetos vindos do localStorage com um array para formar corretamente as tabelas.
     JSON.parse(localStorage.getItem("certificate")).forEach(function(info){ 
-        array.push((info))});
-    return arrayTabela;
+        dataCerti.push((info))});
+    return dataCerti;
 };
 
 $('th').on('click', function(){
@@ -230,12 +230,12 @@ $('th').on('click', function(){
 
     if(ordem == 'decr'){
         $(this).data('ordem', "cresc")
-        arrayTabela = arrayTabela.sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
+        dataCerti = dataCerti.sort((a,b) => a[coluna]>b[coluna] ? 1 : -1)
     }else{
         $(this).data('ordem', "decr")
-        arrayTabela = arrayTabela.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
+        dataCerti = dataCerti.sort((a,b) => a[coluna]<b[coluna] ? 1 : -1)
     }  
-    tabela(arrayTabela)  
+    tabela(dataCerti)  
 });
 
 tabela(getDataCertificate());
