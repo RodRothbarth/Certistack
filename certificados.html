@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- BOOSTRAP -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body onload="Criatabela(getDataCertificate()); PerfilOnline()">
+  <div class="container-large">
+    <div class="nav">
+      <div class="logo">
+        <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
+      </div>
+      <div class="itens">
+        <a href="home.html" class="a-efeito">Home</a>
+        <a href="perfil.html" class="a-efeito">Perfil</a>
+        <a href="certificados.html" class="a-efeito">Certificados</a>
+        <a href="participantes.html" class="a-efeito">Participantes</a>
+      </div>
+      <div class="usuario-nav">
+        <i class="fas fa-user-graduate fa-2x"></i>
+        <span style="margin: 2px 7px;">Olá</span>
+        <div class="dropdown">
+          <button class="dropbtn" id="nome_usuario"></button>
+          <div class="dropdown-content">
+            <a onclick="Logout()" href="">Sair</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="certificados">
+    <div class="cadastro-certificado">
+      <form onsubmit="return AdicionarCertificados()">
+        <div class="title row">
+          <h3 class="">Cadastro de Certificado</h3>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div class="form-group">
+          <input type="text" name="addCerti" class="cpf_certificado form-control" placeholder="CPF do Participante" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="addCerti" class="form-control" placeholder="Nome do Evento" required>
+        </div>
+        <div class="form-group">
+          <select name="addCerti" class="form-control" required>
+            <option value="nulo">Tipo De Evento</option>
+            <option value="oficina">Oficina</option>
+            <option value="Curso Extracurricular">Curso Extracurricular</option>
+            <option value="Eventos Acadêmicos">Eventos Acadêmicos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="data-inicio">Início</label>
+          <input type="text" name="addCerti" class="data-inicio form-control" id="data-inicio"
+            placeholder="Data de Início" required>
+        </div>
+        <div class="form-group">
+          <label for="data-fim">Fim</label>
+          <input type="text" name="addCerti" class="data-fim form-control" id="data-fim" placeholder="Data de Final" required>
+        </div>
+        <div class="form-group">
+          <input type="number" name="addCerti" class="form-control" placeholder="Número de Horas" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="form-control" style="width: 100px; border-radius: px;">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+    <div class="tabela-certificados">
+      <section>
+        <table class="table table-dark">
+          <tr>
+            <th data-coluna="cpf" data-ordem="decr" name="cert">Participante</th>
+            <th data-coluna="evento" data-ordem="decr" name="cert">Evento</th>
+            <th data-coluna="dataI" data-ordem="decr" name="cert">Data Início</th>
+            <th data-coluna="dataF" data-ordem="decr" name="cert">Data Fim</th>
+            <th data-coluna="horas" data-ordem="decr" name="cert">Horas</th>
+            <th data-coluna="tipo" data-ordem="decr" name="cert">Tipo</th>
+            <th>Editar/Deletar</th>
+          </tr>
+          <tbody style="background-color: #677ba2;" id="tabelaCertificados">
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+  <div class="footer">
+  </div>
+  <div class="sub-footer">
+    <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+  </div>
+  <script src="CertiStack.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <!-- slick -->
+  <script type="text/javascript" src="slick.min.js"></script>
+  <script src="jquery.mask.min.js"></script>
+</body>
+
+</html>

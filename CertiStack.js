@@ -1,9 +1,3 @@
-// $(document).ready(function(){
-//     $(".documento").mask('99.999.999/9999-99');
-//    
-//     $(".dataCertInicio").mask("00/00/0000");
-//     $(".dataCertFim").mask("00/00/0000");
-// });
 $(document).ready(function(){
     $(".cpf_certificado").mask('000.000.000-00');
     $(".cpfParticipente").mask('000.000.000-00');
@@ -16,6 +10,13 @@ $(document).ready(function(){
     $(".data-nasc").mask("00/00/0000");
 })
 
+function rollInfos(){
+    window.scrollTo({
+        top: 700,
+        behavior: "smooth"
+    })
+}
+
 $(document).ready(function(){
     $('.carousel').slick({
         infinite: true,
@@ -23,8 +24,7 @@ $(document).ready(function(){
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 8000,
-        fade: true,
-        dots: true
+        fade: true
     });
 });
 
@@ -49,38 +49,12 @@ function mostraLogin(){
 }
 
 function mostraCadastro(){
-    $(".seta").show();
-    $(".cadastro").show();
-    $(".apresentacao").hide();
-}
-
-function mostraPerfil(){
-    $(".certificados").hide();
-    $(".participantes").hide();
-    $(".home").hide();
-    $(".container-perfil").show();
-}
-
-function mostraCertificados(){
-    $(".container-perfil").hide();
-    $(".participantes").hide();
-    $(".home").hide();
-    $(".certificados").show();
-}
-
-function mostraParticipantes(){
-    $(".container-perfil").hide();
-    $(".certificados").hide();
-    $(".home").hide();
-    $(".participantes").show();
-}
-
-function mostraCadastro(){
     $(".cadastro").show();
     $(".seta").show();
     $(".apresentacao").hide();
     $(".login").hide();
 }
+
 
 let dataClient = [];
 let dataBase = [];
@@ -257,6 +231,7 @@ function PerfilOnline(){
     let info = JSON.parse(localStorage.getItem("online"))
     for(let i = 0; i < dataBase.length; i++){
         if(dataBase[i].documento === info.documento){
+            document.getElementById("nome_usuario").innerHTML = dataBase[i].departamento;
             document.getElementById("nome").value = dataBase[i].nome;
             document.getElementById("email").value = dataBase[i].email;
             document.getElementById("cnpj").value = dataBase[i].documento;
@@ -264,26 +239,52 @@ function PerfilOnline(){
             document.getElementById("centro").value = dataBase[i].centro_ensino;
             document.getElementById("departamento").value = dataBase[i].departamento;
             document.getElementById("site").value = dataBase[i].site;
-            document.getElementById("nome_usuario").innerHTML = dataBase[i].departamento;
         };
-    };    
+    };
 };
 
-function EditaPerfil(){
-    dataBase = JSON.parse(localStorage.getItem("user"))
-    let info = JSON.parse(localStorage.getItem("online"))
+function EditarPerfil(){
+    $("#nome").removeAttr("readonly");
+    $("#email").removeAttr("readonly");
+    $("#cnpj").removeAttr("readonly");
+    $("#telefone").removeAttr("readonly");
+    $("#centro").removeAttr("readonly");
+    $("#departamento").removeAttr("readonly");
+    $("#site").removeAttr("readonly");
+    $("#salvar").show();
+    $("#editar").hide();
+    $("#confirma-senha").show();
+}
+
+function ComfirmaEditarPerfil(){
+    dataBase = JSON.parse(localStorage.getItem("user"));
+    let info = JSON.parse(localStorage.getItem("online"));
+    let confirmacao = document.getElementById("confirma-senha").value;
     for(let i = 0; i < dataBase.length; i++){
         if(dataBase[i].documento === info.documento){
-           dataBase[i].email = document.getElementById("email").value;
-           dataBase[i].documento = document.getElementById("cnpj").value;
-           dataBase[i].telefone = document.getElementById("telefone").value;
-           dataBase[i].centro_ensino = document.getElementById("centro").value;
-           dataBase[i].departamento = document.getElementById("departamento").value;
-           dataBase[i].site = document.getElementById("site").value;
-           dataBase[i].departamento = document.getElementById("nome_usuario").innerHTML;
-           localStorage.setItem('user', JSON.stringify(dataBase))
+            if(confirmacao === dataBase[i].senha ){
+                dataBase[i].email = document.getElementById("email").value;
+                dataBase[i].documento = document.getElementById("cnpj").value;
+                dataBase[i].telefone = document.getElementById("telefone").value;
+                dataBase[i].centro_ensino = document.getElementById("centro").value;
+                dataBase[i].departamento = document.getElementById("departamento").value;
+                dataBase[i].site = document.getElementById("site").value;
+                dataBase[i].departamento = document.getElementById("nome_usuario").innerHTML;
+                localStorage.setItem('user', JSON.stringify(dataBase));
+                localStorage.setItem('online', JSON.stringify(dataBase[i])); 
+            };
         };
-    };    
+    };
+    $("#nome").attr('readonly', true);
+    $("#email").attr('readonly', true);
+    $("#cnpj").attr('readonly', true);
+    $("#telefone").attr('readonly', true);
+    $("#centro").attr('readonly', true);
+    $("#departamento").attr('readonly', true);
+    $("#site").attr('readonly', true);
+    $("#salvar").hide();
+    $("#editar").show();
+    $("#confirma-senha").hide();
 };
 
 function TestaCPF(strCPF) {
@@ -360,7 +361,7 @@ $('th').on('click', function(){ //permite que a tabela seja organizada pela orde
     Criatabela(dataCerti)  
 })
 
-Criatabela(getDataCertificate())
+
 
 function Criatabela(dados){ // função que cria a tabela para os certificados
     let tabela = document.getElementById("tabelaCertificados")
@@ -376,12 +377,12 @@ function Criatabela(dados){ // função que cria a tabela para os certificados
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].horas}</td> 
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].tipo}</td> 
                         <td>
-                            <img id="edita-${dados[i].id}"  src='/imagens/edit.png'  class='' data-id="${dados[i].id}">
-                            <img id="deleta-${dados[i].id}"  src='/imagens/lixo.png' class='' data-id="${dados[i].id}">
-                            <img id="confirma-${dados[i].id}"  src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}"> 
-                            <img id="cancela-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="cancEdit-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="edit-${dados[i].id}" src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}">  
+                            <img id="edita-${dados[i].id}" src='imagens/edit.png' style="padding-left: 10px;" class='' data-id="${dados[i].id}">
+                            <img id="deleta-${dados[i].id}"  src='imagens/lixo.png' style="padding-left: 10px;" class='' data-id="${dados[i].id}">
+                            <img id="confirma-${dados[i].id}"  src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}"> 
+                            <img id="cancela-${dados[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">    
+                            <img id="cancEdit-${dados[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">    
+                            <img id="edit-${dados[i].id}" src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">  
                         </td> 
                          
                    </tr>`
@@ -389,7 +390,7 @@ function Criatabela(dados){ // função que cria a tabela para os certificados
         
         $(`#deleta-${dados[i].id}`).on('click', DeletaLinha)
         $(`#edita-${dados[i].id}`).on('click', EditarLinha)
-        $(`#confirma-${dados[i].id}`).on('click', ConfirmaEdicao)
+        $(`#confirma-${dados[i].id}`).on('click', ConfirmaDel)
         $(`#cancela-${dados[i].id}`).on('click', CancelaDel)
         $(`#cancEdit-${dados[i].id}`).on('click', CancelaEdit)
         $(`#edit-${dados[i].id}`).on('click', ConfirmaEdicao)
@@ -444,24 +445,25 @@ function ConfirmaEdicao(){//confirma a edição feita nas linhas da table
     dataCerti[`${idLinha}`].tipo = tipo
 
     localStorage.setItem('certificate', JSON.stringify(dataCerti))
-    editar.removeClass('hidden')
-    deletar.removeClass('hidden')
-    cancelar.addClass('hidden')
-    salvar.addClass('hidden')
+    editar.removeClass('hidden');
+    deletar.removeClass('hidden');
+    cancelar.addClass('hidden');
+    salvar.addClass('hidden');
+    location.reload();
 }
 
 function CancelaEdit(){ //cancela a opção de edição
-    let idLinha = $(this).data('id')
-    let editar = $(`#edita-${idLinha}`)
-    let deletar = $(`#deleta-${idLinha}`)
-    let cancelar = $(`#cancEdit-${idLinha}`)
-    let confirmar = $(`#edit-${idLinha}`)
+    let idLinha = $(this).data('id');
+    let editar = $(`#edita-${idLinha}`);
+    let deletar = $(`#deleta-${idLinha}`);
+    let cancelar = $(`#cancEdit-${idLinha}`);
+    let confirmar = $(`#edit-${idLinha}`);
     
-    editar.removeClass('hidden')
-    deletar.removeClass('hidden')
-    cancelar.addClass('hidden')
-    confirmar.addClass('hidden')
-    
+    editar.removeClass('hidden');
+    deletar.removeClass('hidden');
+    cancelar.addClass('hidden');
+    confirmar.addClass('hidden');
+    location.reload();
 }
 
 function DeletaLinha(){ // ldeleta as informação do certificado desejado
@@ -535,8 +537,6 @@ $('th').on('click', function(){ // organiza a tabela
     tabelaParticipantes(dataClient)  
 })
 
-tabelaParticipantes(getDataCliente())
-
 function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
     let tabela = document.getElementById("tabela-cliente")
     tabela.innerHTML = ""
@@ -554,12 +554,12 @@ function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
                         <td name='linha-${dados[i].id}' data-id="${dados[i].id}" >${dados[i].lattes}</td> 
                          
                         <td>
-                            <img id="editCliente-${dados[i].id}"  src='/imagens/edit.png'  class='' data-id="${dados[i].id}">
-                            <img id="deletaCliente-${dados[i].id}"  src='/imagens/lixo.png' class='' data-id="${dados[i].id}">
-                            <img id="confirmaDelCliente-${dados[i].id}"  src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}"> 
-                            <img id="cancelaDelCliente-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="cancEditCliente-${dados[i].id}"  src='/imagens/errado.png' class='hidden' data-id="${dados[i].id}">    
-                            <img id="ConfirmaEditCliente-${dados[i].id}" src='/imagens/certo.png' class='hidden' data-id="${dados[i].id}">  
+                            <img id="editCliente-${dados[i].id}"  src='imagens/edit.png'  style="padding-left: 10px;" class='' data-id="${dados[i].id}">
+                            <img id="deletaCliente-${dados[i].id}"  src='imagens/lixo.png' style="padding-left: 10px;" class='' data-id="${dados[i].id}">
+                            <img id="confirmaDelCliente-${dados[i].id}"  src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}"> 
+                            <img id="cancelaDelCliente-${dados[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">    
+                            <img id="cancEditCliente-${dados[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">    
+                            <img id="ConfirmaEditCliente-${dados[i].id}" src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${dados[i].id}">  
                         </td> 
                          
                    </tr>`
@@ -634,6 +634,7 @@ function ConfirmaCliente(){
     deletar.removeClass('hidden')
     cancelar.addClass('hidden')
     salvar.addClass('hidden')
+    location.reload();
 }
 
 function CancelaEditCliente(){
@@ -647,6 +648,7 @@ function CancelaEditCliente(){
     deletar.removeClass('hidden')
     cancelar.addClass('hidden')
     confirmar.addClass('hidden')
+    location.reload();
 }
 
 function DeletaCliente(){
@@ -666,7 +668,7 @@ function ConfirmaDelCliente(){
     let idLinha = $(this).data("id")
     let linha = $(`.linha-${idLinha}`)
     
-    dataCerti.splice(`${idLinha}`,1)
+    dataClient.splice(`${idLinha}`,1)
     localStorage.setItem('cliente', JSON.stringify(dataClient))  
     linha.remove()
 }

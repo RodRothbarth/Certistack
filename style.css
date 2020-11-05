@@ -1,33 +1,14 @@
-@font-face {
-	font-family: "Roboto";
-    src: url(/fonts/roboto/Roboto-Black.ttf),
-        url(/fonts/roboto/Roboto-BlackItalic.ttf),
-        url(/fonts/roboto/Roboto-Bold.ttf),
-        url(/fonts/roboto/Roboto-BoldCondensed.ttf),
-        url(/fonts/roboto/Roboto-BoldCondensedItalic.ttf),
-        url(/fonts/roboto/Roboto-BoldItalic.ttf),
-        url(/fonts/roboto/Roboto-Italic.ttf),
-        url(/fonts/roboto/Roboto-Light.ttf),
-        url(/fonts/roboto/Roboto-LightItalic.ttf),
-        url(/fonts/roboto/Roboto-Medium.ttf),
-        url(/fonts/roboto/Roboto-MediumItalic.ttf),
-        url(/fonts/roboto/Roboto-Regular.ttf),
-        url(/fonts/roboto/Roboto-Thin.ttf),
-        url(/fonts/roboto/Roboto-ThinItalic.ttf)
-}
-/* PG. CADASTRO E LOGIN */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap');
+
+/*************** PG. CADASTRO E LOGIN ******************/
 body, html{
     max-width: 1920px;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    font-family: "Roboto";
 }
-
-.hidden{
-    display:none;
-}
-
 .container{
     /* background-color: #1E1E1E; */
     background-color: #F5F5F5;
@@ -101,9 +82,8 @@ body, html{
     transform: translate(-50%, -50%);
     display: none;
 }
-/* PG HOME */
 
-/* HEADER */
+/************** HEADER *****************/
 .container-large{
     top: 0;
     width: 100%;
@@ -145,7 +125,6 @@ body, html{
    height: 25px;
    background:  #0c6356;
    transition: all 0.3s ease-out;
-   opacity: 0.3;
 }
 .container-large .nav .itens .a-efeito:hover:before{
     background:  #0AC5A8;
@@ -163,7 +142,7 @@ body, html{
     display: flex;
 }
 
-/* Drop Down */
+/****************** Drop Down ********************/
 .dropbtn {
     background-color: #2C3C5B;
     color: white;
@@ -198,7 +177,7 @@ body, html{
 .dropdown:hover .dropdown-content {
     display: block;
 }
-/* FOOTER */
+/********************* FOOTER ************************/
 .footer{
     position: relative;
     bottom: 0;
@@ -221,36 +200,131 @@ body, html{
     padding: 10px;
     opacity: 0.6;
 }
-/* HOME */
-.home{
+/********************* HOME *************************/
+.menu_navegacao{
     justify-content: center;
     width: 100%;
+    height: 100vh;
     display: grid;
     flex-direction: row;
     align-items: center;
     padding-top: 100px;
 }
-.home .apresentacao{
-    position: relative;
+.menu_navegacao .itens_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0% 15%;
+    list-style: none;
+    margin: 45px 10px;
+}
+.menu_navegacao .itens_list .item {
+    border: 1px solid #DDDDDD;
+    min-height: 250px;
+    min-width: 300px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #ffffff;
+    background-color: #2C3C5B;
+    display: flex;
+    flex: 1 0 350px;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 15px 30px;
+    max-width: 100%;
     text-align: center;
-    font-size: 30px;
-    margin: auto;
-    width: 65%;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    transition-duration: 0.35s;
+    transition-property: transform;
+}
+.menu_navegacao .itens_list a {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2C3C5B;
+}
+.menu_navegacao .itens_list a:hover {
+    text-decoration: none;
+    transform: scale(1.08);
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.3);
+}
+.menu_navegacao .itens_list a i{
+    margin: 30px;
+}
+.home{
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    display: grid;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 41px;
+    background-color: #0AC5A8;
 }
 .home .apresentacao h1{
-    background: #0AC5A9;
-    border-radius: 10px;
+    text-align: center;
     padding: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    background: #26324b;
+    font-family: "Roboto";
 }
+.home .apresentacao {
+    background-color: #26324b;
+    border-radius: 10px;
+    color: #ffffff;
+}
+.home .apresentacao-devs {
+    background-color: #2C3C5B;
+    border-radius: 10px;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+.home .apresentacao-devs h1 {
+    text-align: center;
+    padding: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    background: #26324b;
+    font-family: "Roboto";
+}
+
 .home .apresentacao p{
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 300;
 }
-/* CAROUSEL */
+.home .devs{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin: 50px;
+}
+.home .devs .card{
+    background: #26324b;
+    border-radius: 10px;
+}
+.home .devs .card .top-card{
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+}
+.home .devs .card .mid-card img{
+    width: 250px;
+    height: 250px;
+}
+/*********************** CAROUSEL *************************/
 .home .carousel img{
     width: 100%;
 }
-/* PG. PERFIL */
+/******************* PG. PERFIL ********************/
 .container-perfil {
     width: 100%;
     height: 700px;
@@ -294,10 +368,10 @@ body, html{
     display: flex;
     justify-content: space-between;
 }
-/* PG. certificados */    
+/******************* PG. certificados ************************/    
 .certificados{
     width: 100%;
-    display: flex;
+    display: grid;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -315,7 +389,7 @@ body, html{
     padding-bottom: 5px;
 }
 .certificados .cadastro-certificado{
-    width: 530px;
+    width: 770px;
     height: auto;
     background-color: #F5F5F5;
     padding: 50px;
@@ -328,7 +402,7 @@ body, html{
     padding-bottom: 5px;
 }
 .certificados .tabela-certificados{
-    width: 660px;
+    width: auto;
     height: 580px;
     background-color: #F5F5F5;
     border-radius: 10px;
@@ -338,7 +412,10 @@ body, html{
 .table-dark{
     background-color: #2C3C5B !important;
 }
-/* PG. Participantes */
+.hidden{
+    display:none;
+}
+/******************* PG. Participantes *********************/
 .participantes .cadastro-participantes form .title{
     border-bottom: solid;
     border-color: #2C3C5B;
@@ -352,7 +429,7 @@ body, html{
 }
 .participantes{
     width: 100%;
-    display: flex;
+    display: grid;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
@@ -360,7 +437,7 @@ body, html{
 
 }
 .participantes .cadastro-participantes{
-    width: 530px;
+    width: 770px;
     height: auto;
     background-color: #F5F5F5;
     padding: 50px;
@@ -368,7 +445,7 @@ body, html{
     margin-bottom: 30px;
 }
 .participantes .tabela-participantes{
-    width: 660px;
+    width: auto;
     height: 626px;
     background-color: #F5F5F5;
     border-radius: 10px;

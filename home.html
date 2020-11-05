@@ -1,237 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- BOOSTRAP -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- SLICK -->    
-    <link rel="stylesheet" type="text/css" href="slick-theme.css"/>
-    <link rel="stylesheet" type="text/css" href="slick.css"/>
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- BOOSTRAP -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- SLICK -->
+  <link rel="stylesheet" type="text/css" href="slick-theme.css" />
+  <link rel="stylesheet" type="text/css" href="slick.css" />
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
+
 <body onload="PerfilOnline()">
   <div class="container-large">
-    <div class="nav">
+    <div class="nav" style="justify-content: center;">
         <div class="logo">
-          <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
-        </div>
-        <div class="itens">
-          <a onclick="mostraHome()" href="#" class="a-efeito">Home</a>
-          <a onclick="mostraPerfil()" href="#" class="a-efeito">Perfil</a>
-          <a onclick="mostraCertificados()" href="#" class="a-efeito">Certificados</a>
-          <a onclick="mostraParticipantes()" href="#" class="a-efeito">Participantes</a>
+            <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
         </div>
         <div class="usuario-nav">
-          <i class="fas fa-user-graduate fa-2x"></i>
-          <span style="margin: 2px 7px;">Olá</span>
-          <div class="dropdown">
-            <button class="dropbtn" id="nome_usuario"></button>
-            <div class="dropdown-content">
-              <a onclick="Logout()">Sair</a>
+            <i class="fas fa-user-graduate fa-2x"></i>
+            <div class="dropdown">
+                <button class="dropbtn" style="margin: 2px 7px;" id="nome_usuario"></button>
+                <div class="dropdown-content">
+                    <a onclick="Logout()" href="">Sair</a>
+                </div>
             </div>
-          </div>
         </div>
+    </div>
+  </div>
+  <div class="menu_navegacao" >
+    <div class="itens_list">
+
+      <a href="perfil.html" class="item">
+        Perfil
+        <i class="fas fa-address-card fa-3x"></i>
+      </a>
+        
+      <a href="certificados.html" class="item">
+        Certificados
+        <i class="fas fa-scroll fa-3x"></i>
+      </a>
+      <a href="participantes.html" class="item">
+        Participantes
+        <i class="fas fa-user-graduate fa-3x"></i>
+      </a>
+      <a class="item" onclick="rollInfos()">
+        Mais sobre a plataforma
+        <i class="fas fa-info fa-3x"></i>
+      </a>
+
     </div>
   </div>
   <div class="home">
     <div class="apresentacao">
       <h1>Veja como funciona nossa plataforma!</h1>
-      <p>O Certistack realiza de forma unificada e automática as declarações de horas extracurriculares. Tem a opção de subir na interface o certificado de forma online. Disponível de modo constante para pesquisa do usuário e comprovação das horas.</p>
+      <div class="carousel">
+        <div><img src="images/slider-images/img1.jpg" alt=""></div>
+        <div><img src="images/slider-images/img2.jpg" alt=""></div>
+        <div><img src="images/slider-images/img3.jpg" alt=""></div>
+      </div>
     </div>
-    <div class="carousel">
-      <div><img src="images/slider-images/img1.jpg" alt=""></div>
-      <div><img src="images/slider-images/img2.jpg" alt=""></div>
-      <div><img src="images/slider-images/img3.jpg" alt=""></div>
-    </div>  
-  </div>   
-  <div class="container-perfil" style="display: none;">
-    <!-- <div class="perfil-image">
-      <img src="images/perfil.svg" alt="">
-    </div> -->
-    <div class="perfil">
-      <form>
-        <div class="title row">
-          <h3 class="">Dados Pessoais</h3>
-          <button type="button" class="form-control btn btn-dark"  style="background-color: #0AC5A8 !important; width: 70px;">Editar</button>
-        </div>
-        <div>
-          &nbsp;
-        </div>
-        <div>
-          &nbsp;
-        </div>
-        <div class="form-group">
-          <input type="text" id="nome" class="form-control" placeholder="Nome da Instituição" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="email" class="form-control" placeholder="Email" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="cnpj" class="form-control" placeholder="CNPJ" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="telefone" class="form-control" placeholder="Telefone" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="centro" class="form-control" placeholder="Centro de Ensino" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="departamento" class="form-control" placeholder="Departamento" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <input type="text" id="site" class="form-control" placeholder="Site" readonly="readonly">
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="certificados" style="display: none;">
-    <div class="cadastro-certificado">
-      <form onsubmit="return AdicionarCertificados()">
-        <div class="title row">
-          <h3 class="">Cadastro de Certificado</h3>
-        </div>
-        <div>
-          &nbsp;
-        </div>
-        <div>
-          &nbsp;
-        </div>
-        <div class="form-group">
-          <input type="text" name="addCerti" class="cpf_certificado form-control" placeholder="CPF do Participante">
-        </div>
-        <div class="form-group">
-          <input type="text" name="addCerti" class="form-control" placeholder="Nome do Evento">
-        </div>
-        <div class="form-group">
-          <select name="addCerti" class="form-control">
-            <option value="nulo">Tipo De Evento</option>
-            <option value="oficina">Oficina</option>
-            <option value="Curso Extracurricular">Curso Extracurricular</option>
-            <option value="Eventos Acadêmicos">Eventos Acadêmicos</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="data-inicio">Início</label>
-          <input type="text" name="addCerti" class="data-inicio form-control" id="data-inicio" placeholder="Data de Início">
-        </div>
-        <div class="form-group">
-          <label for="data-fim">Fim</label>
-          <input type="text" name="addCerti" class="data-fim form-control" id="data-fim" placeholder="Data de Final">
-        </div>
-        <div class="form-group">
-          <input type="number" name="addCerti" class="form-control" placeholder="Número de Horas">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="form-control" style="width: 100px; border-radius: px;">Cadastrar</button>
-        </div>
-      </form>
-    </div>
-    <div class="tabela-certificados">
-      <section>
-      <table class="table table-dark">
-        <tr>
-          <th  data-coluna="cpf" data-ordem="decr" name="cert" >Participante</th>
-          <th  data-coluna="evento" data-ordem="decr" name="cert" >Evento</th>
-          <th  data-coluna="dataI" data-ordem="decr" name="cert" >Data Início</th>
-          <th  data-coluna="dataF" data-ordem="decr" name="cert" >Data Fim</th>
-          <th  data-coluna="horas" data-ordem="decr" name="cert" >Horas</th>
-          <th  data-coluna="tipo" data-ordem="decr" name="cert" >Tipo</th>
-          <th  >Editar/Deletar</th>
-      </tr>
-      <tbody id="tabelaCertificados">
-          
-      </tbody>
-      </table>
-    </section>
-    </div>
-  </div>
-  <div class="participantes" style="display: none;">
-      <div class="cadastro-participantes">
-        <form onsubmit="return CadastrarCliente()">
-          <div class="title row">
-            <h3>Cadastro de Participante</h3>
+    <div class="apresentacao-devs">
+      <h1>Desenvolvedores</h1>
+      <div class="devs">
+        <div class="card">
+          <div class="top-card">
+            <h4>Luciano Jr.</h4>
+          </div>
+          <div class="mid-card">
+            <img src="images/card-images/card_luciano.jpg" alt="CertiStack">
+          </div>
+          <div class="bottom-card">
+            <span></span>
           </div>
           <div>
-            &nbsp;
+            <i class="fab fa-instagram fa-lg"></i>
           </div>
-          <div>
-            &nbsp;
+        </div>
+        
+        <div class="card">
+          <div class="top-card">
+            <h4>Rafael Matos</h4>
           </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Nome Completo">
+          <div class="mid-card">
+            <img src="" alt="CertiStack">
           </div>
-          <div class="form-group">
-            <input id='cpf' type="text" name="cadastroParticipante" class="cpfParticipente form-control" placeholder="CPF" onblur="ValidarCpf()">
+          <div class="bottom-card">
+            <span></span>
           </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="form-control" placeholder="E-mail">
+          <div>redes sociais</div>
+        </div>
+        <div class="card">
+          <div class="top-card">
+            <h4>Rodrigo Rothbarth</h4>
           </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="data-nasc form-control" placeholder="Data de Nascimento">
+          <div class="mid-card">
+            <img src="" alt="CertiStack">
           </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="telefoneCliente form-control" placeholder="Telefone">
+          <div class="bottom-card">
+            <span></span>
           </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Universidade">
-          </div>
-          <div class="form-group">
-            <div class="form-group">
-              <select id="select" name="cadastroParticipante" class="form-control">
-                  <option value="">Área de conhecimento</option>
-                  <option value="Engenharias">Engenharias</option>
-                  <option value="Lingüística, Letras e Artes">Lingüística, Letras e Artes</option>
-                  <option value="Agrárias">Ciências Agrárias</option>
-                  <option value="Biológicas">Ciências Biológicas</option>
-                  <option value="Exatas e da Terra">Ciências Exatas e da Terra</option>
-                  <option value="Saúde">Ciências da Saúde</option>
-                  <option value="Humanas">Ciências Humanas</option>
-                  <option value="Sociais Aplicadas">Ciências Sociais Aplicadas</option>
-                  </select>
-              </div>
-          </div>
-          <div class="form-group">
-            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Lattes">
-          </div>
-          <button type="submit" class="form-control" style="width: 100px; border-radius: px;">Cadastrar</button>
-        </form>
+          <div>redes sociais</div>
+        </div>
       </div>
-      <div class="tabela-participantes">
-        <table class="table table-dark">
-          <tr>
-            <th  data-coluna="nome" data-ordem="decr" name="cert" >Nome</th>
-            <th  data-coluna="documento" data-ordem="decr" name="cert" >CPF</th>
-            <th  data-coluna="email" data-ordem="decr" name="cert" >E-mail</th>
-            <th  data-coluna="dataNasc" data-ordem="decr" name="cert" >Data Nasc.</th>
-            <th  data-coluna="telefone" data-ordem="decr" name="cert" >Telefone</th>
-            <th  data-coluna="instituicao" data-ordem="decr" name="cert" >Instituição</th>
-            <th  data-coluna="area" data-ordem="decr" name="cert" >Área</th>
-            <th  data-coluna="lattes" data-ordem="decr" name="cert" >Lattes</th>
-            <th  >Editar/Deletar</th>
-          </tr>
-          <tbody id="tabela-cliente"></tbody>
-        </table>
-      </div>
-  </div>
-
-  <div class="footer">
+    </div>
 
   </div>
+  <div class="footer"></div>
+
   <div class="sub-footer">
     <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
   </div>
   <script src="CertiStack.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
   <!-- slick -->
   <script type="text/javascript" src="slick.min.js"></script>
   <script src="jquery.mask.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
+
 </html>
