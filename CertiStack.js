@@ -63,7 +63,7 @@ let user = Array.from(document.getElementsByName("cadastro")).map(function(eleme
 let usern = document.getElementById("cpf");
 let pssw = document.getElementById("senha");
 
-function Cliente(name, email, documento, telefone, dataNasc, instituicao, area, lattes, id){
+function Cliente(name, documento, email, dataNasc, telefone, instituicao, area, lattes, id){
     this.nome = name;
     this.email = email;
     this.documento = documento;
@@ -364,7 +364,7 @@ function getDataCertificate(){ //trasforma os objetos vindos do localStorage com
     return dataCerti;
 }
 
-$('th').on('click', function(){ //permite que a tabela seja organizada pela ordem desejada
+$('#cet-table').on('click', function(){ //permite que a tabela seja organizada pela ordem desejada
     let coluna = $(this).data('coluna');
     let ordem = $(this).data('ordem');
 
@@ -377,8 +377,6 @@ $('th').on('click', function(){ //permite que a tabela seja organizada pela orde
     }  
     Criatabela(dataCerti)  
 })
-
-
 
 function Criatabela(dados){ // função que cria a tabela para os certificados
     let tabela = document.getElementById("tabelaCertificados")
@@ -403,7 +401,7 @@ function Criatabela(dados){ // função que cria a tabela para os certificados
                         </td> 
                          
                    </tr>`
-        tabela.innerHTML += row
+        $('#tabelaCertificados').append(row)
         
         $(`#deleta-${dados[i].id}`).on('click', DeletaLinha)
         $(`#edita-${dados[i].id}`).on('click', EditarLinha)
@@ -540,7 +538,7 @@ function getDataCliente(){ //trasforma os objetos vindos do localStorage com um 
     return dataClient;
 }
 
-$('th').on('click', function(){ // organiza a tabela 
+$('#client-table').on('click', function(){ // organiza a tabela 
     let coluna = $(this).data('coluna');
     let ordem = $(this).data('ordem');
 
@@ -580,7 +578,7 @@ function tabelaParticipantes(dados){ //cria a tabela de participantes de eventos
                         </td> 
                          
                    </tr>`
-        tabela.innerHTML += row
+        $('#tabela-cliente').append(row)
 
         $(`#editCliente-${dados[i].id}`).on('click', EditarCliente)
         $(`#ConfirmaEditCliente-${dados[i].id}`).on('click', ConfirmaCliente)
@@ -607,10 +605,10 @@ function EditarCliente(){
     let lattes = dataClient[`${idLinha}`].lattes;     
      
     $(this).parents('tr').find(`td:eq(0)`).html(`<input id='nome-${idLinha}' type="text" value="${nome}">`)
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='email-${idLinha}' type="text" value="${email}">`)
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='documento-${idLinha}'  "type="text" value="${documento}">`)
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='telefone-${idLinha}'  type="text" value="${telefone}">`).mask('(00) 00000-0000') //ver o pq nao funcona quando coloco os dois nasc e telefone como 
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')// number mas quando esta apenas um aquele funciona
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='documento-${idLinha}'  "type="text" value="${documento}">`).mask('000.000.000-00')
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='email-${idLinha}' type="text" value="${email}">`)
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')//ver o pq nao funcona quando coloco os dois nasc e telefone como 
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='telefone-${idLinha}'  type="text" value="${telefone}">`).mask('(00) 00000-0000')// number mas quando esta apenas um aquele funciona
     $(this).parents('tr').find(`td:eq(5)`).html(`<input id='instituicao-${idLinha}' type="text" value="${instituicao}">`)
     $(this).parents('tr').find(`td:eq(6)`).html(`<input id='area-${idLinha}' type="text" value="${area}">`)
     $(this).parents('tr').find(`td:eq(7)`).html(`<input id='lattes-${idLinha}' type="text" value="${lattes}">`)
