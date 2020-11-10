@@ -103,9 +103,21 @@ function FormularioUsuario(){//cria o objeto a ser utilizado no cadastro
     let form = new User(user[0], user[1], user[2], user[4], user[5], user[6], user[7], user[8], user[9]); //mexer!!!
         return form; 
 };
+function test(){
+    
+    dataBase = JSON.parse(localStorage.getItem("user"))
+    
+    for(let i=0;i<dataClient.length;i++){
+        let existe = dataBase[i].documento.includes(novo.documento)
+        if(existe === true){
+            alert("participante ja cadastrado")
+        }
+    }    
 
+}
 function CadastrarUser(){ //sistema para cadastrar um novo usuario.
     let novo = FormularioUsuario();
+    dataBase = JSON.parse(localStorage.getItem("user"));
     
     if (localStorage.getItem("user") === null ){
         dataBase.push(novo);
@@ -114,12 +126,19 @@ function CadastrarUser(){ //sistema para cadastrar um novo usuario.
         $(".login").show();
         $(".cadastro").hide();
     }else{
-        dataBase = JSON.parse(localStorage.getItem("user"));
-        dataBase.push(novo);
-        localStorage.setItem("user", JSON.stringify(dataBase));
-        alert("Cadastro Realizado com Sucesso!");
-        $(".login").show();
-        $(".cadastro").hide();
+        for(let i=0;i<dataBase.length;i++){
+            let existe = dataBase[i].documento.includes(novo.documento)
+            if(existe === true){
+                alert("Usuário já cadastrado")
+            }else{
+                dataBase.push(novo);
+                localStorage.setItem("user", JSON.stringify(dataBase));
+                alert("Cadastro Realizado com Sucesso!");
+                $(".login").show();
+                $(".cadastro").hide();
+            }
+        }
+        
     };        
 };
 
@@ -516,18 +535,32 @@ function CancelaDel(){ // cancela a atribuição de deleção do item da tabela
     confirmar.addClass('hidden')  
 }
 
+function FormularioCliente(){
+    let cliente = Array.from(document.getElementsByName("cadastroParticipante")).map(function(element){return element.value;});
+    let form = new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],cliente[5],cliente[6],cliente[7])
+        return form;
+}
+
 function CadastrarCliente(){ //sistema para cadastrar um novo usuario.
-    let cliente = Array.from(document.getElementsByName("cadastroParticipante")).map(function(element){return element.value;});    
+    let cliente = FormularioCliente()  
+    dataClient = JSON.parse(localStorage.getItem("cliente")) 
         
     if (localStorage.getItem("cliente") === null ){ //cria um localStorage cliente se inexistente
-        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],cliente[5],cliente[6],cliente[7]));
+        dataClient.push(cliente);
         localStorage.setItem("cliente", JSON.stringify(dataClient));
         alert("Cadastro Realizado com Sucesso!");
     }else{ // adiciona novos parametros no localStorage cliente
-        dataClient = JSON.parse(localStorage.getItem("cliente"))
-        dataClient.push(new Cliente(cliente[0],cliente[1],cliente[2],cliente[3],cliente[4],cliente[5],cliente[6],cliente[7]));
-        localStorage.setItem("cliente", JSON.stringify(dataClient));
-        alert("Cadastro Realizado com Sucesso!");
+    
+        for(let i=0;i<dataClient.length;i++){
+            let existe = dataClient[i].documento.includes(cliente.documento)
+            if(existe === true){
+                alert("Participante já cadastrado!")
+            }else{
+                dataClient.push(cliente);
+                localStorage.setItem("cliente", JSON.stringify(dataClient));
+                alert("Cadastro Realizado com Sucesso!");
+            }
+        }   
     }        
 }
 
@@ -605,18 +638,18 @@ function EditarCliente(){
     let lattes = dataClient[`${idLinha}`].lattes;     
      
     $(this).parents('tr').find(`td:eq(0)`).html(`<input id='nome-${idLinha}' type="text" value="${nome}">`)
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='documento-${idLinha}'  "type="text" value="${documento}">`).mask('000.000.000-00')
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='email-${idLinha}' type="text" value="${email}">`)
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')//ver o pq nao funcona quando coloco os dois nasc e telefone como 
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='telefone-${idLinha}'  type="text" value="${telefone}">`).mask('(00) 00000-0000')// number mas quando esta apenas um aquele funciona
-    $(this).parents('tr').find(`td:eq(5)`).html(`<input id='instituicao-${idLinha}' type="text" value="${instituicao}">`)
-    $(this).parents('tr').find(`td:eq(6)`).html(`<input id='area-${idLinha}' type="text" value="${area}">`)
-    $(this).parents('tr').find(`td:eq(7)`).html(`<input id='lattes-${idLinha}' type="text" value="${lattes}">`)
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input style="width:120px"id='documento-${idLinha}'  "type="text" value="${documento}">`)
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input style="width:150px"id='email-${idLinha}' type="text" value="${email}">`)
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input style="width:100px"id='dataNasc-${idLinha}' type="text" value="${dataNasc}">`).mask('00/00/0000')
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input style="width:100px"id='telefone-${idLinha}'  type="text" value="${telefone}">`)
+    $(this).parents('tr').find(`td:eq(5)`).html(`<input style="width:100px"id='instituicao-${idLinha}' type="text" value="${instituicao}">`)
+    $(this).parents('tr').find(`td:eq(6)`).html(`<input style="width:100px"id='area-${idLinha}' type="text" value="${area}">`)
+    $(this).parents('tr').find(`td:eq(7)`).html(`<input style="width:100px"id='lattes-${idLinha}' type="text" value="${lattes}">`)
     
-    editar.addClass('hidden')
-    deletar.addClass('hidden')
-    cancelar.removeClass('hidden')
-    salvar.removeClass('hidden')
+    editar.addClass('hidden');
+    deletar.addClass('hidden');
+    cancelar.removeClass('hidden');
+    salvar.removeClass('hidden');
 }
 
 function ConfirmaCliente(){
