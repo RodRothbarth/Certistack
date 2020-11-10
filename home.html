@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Inicial</title>
+  <title>Home</title>
+  <link rel="shortcut icon" href="imagens/logo.png">
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- BOOSTRAP -->
@@ -22,16 +23,16 @@
 
 <body onload="PerfilOnline()">
   <div class="container-large">
-    <div class="nav" style="justify-content: center;">
+    <div class="nav">
         <div class="logo">
-            <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
+          <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
         </div>
         <div class="usuario-nav">
-            <i class="fas fa-user-graduate fa-2x"></i>
+          <i class="far fa-building fa-2x"></i>
             <div class="dropdown">
-                <button class="dropbtn" style="margin: 2px 7px;" id="nome_usuario"></button>
+                <button class="dropbtn" style="margin: 2px 7px; font-size: 17px; font-family: 'Roboto';" id="nome_usuario"></button>
                 <div class="dropdown-content">
-                    <a onclick="Logout()" href="">Sair</a>
+                    <a onclick="Logout()" href="cadastro-login.html">Sair</a>
                 </div>
             </div>
         </div>
@@ -64,9 +65,9 @@
     <div class="apresentacao">
       <h1>Veja como funciona nossa plataforma!</h1>
       <div class="carousel">
-        <div><img src="images/slider-images/img1.jpg" alt=""></div>
-        <div><img src="images/slider-images/img2.jpg" alt=""></div>
-        <div><img src="images/slider-images/img3.jpg" alt=""></div>
+        <div><img src="imagens/slider-images/img1.jpg" alt=""></div>
+        <div><img src="imagens/slider-images/img2.jpg" alt=""></div>
+        <div><img src="imagens/slider-images/img3.jpg" alt=""></div>
       </div>
     </div>
     <div class="apresentacao-devs">
@@ -77,13 +78,13 @@
             <h4>Luciano Jr.</h4>
           </div>
           <div class="mid-card">
-            <img src="images/card-images/card_luciano.jpg" alt="CertiStack">
+            <img src="imagens/card-images/card_luciano.jpg" alt="CertiStack">
           </div>
           <div class="bottom-card">
             <span></span>
           </div>
           <div>
-            <i class="fab fa-instagram fa-lg"></i>
+            &nbsp;
           </div>
         </div>
         
@@ -92,31 +93,35 @@
             <h4>Rafael Matos</h4>
           </div>
           <div class="mid-card">
-            <img src="" alt="CertiStack">
+            <img src="imagens/card-images/card_rafael.jpg" alt="CertiStack">
           </div>
           <div class="bottom-card">
             <span></span>
           </div>
-          <div>redes sociais</div>
+          <div>
+            &nbsp;
+          </div>
         </div>
         <div class="card">
           <div class="top-card">
             <h4>Rodrigo Rothbarth</h4>
           </div>
           <div class="mid-card">
-            <img src="" alt="CertiStack">
+            <img src="imagens/card-images/card_rodrigo.jpg" alt="CertiStack">
           </div>
           <div class="bottom-card">
             <span></span>
           </div>
-          <div>redes sociais</div>
+          <div>
+            &nbsp;
+          </div>
         </div>
       </div>
     </div>
 
   </div>
-  <div class="footer"></div>
-
+  <div class="footer">
+  </div>
   <div class="sub-footer">
     <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
   </div>

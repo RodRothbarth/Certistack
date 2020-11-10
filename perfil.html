@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>Perfil</title>
+    <link rel="shortcut icon" href="imagens/logo.png">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- BOOSTRAP -->
@@ -21,30 +22,30 @@
     <div class="container-large">
         <div class="nav">
             <div class="logo">
-                <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
+                <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
             </div>
             <div class="itens">
                 <a href="home.html" class="a-efeito">Home</a>
-                <a href="perfil.html" class="a-efeito">Perfil</a>
+                <a href="perfil.html" class="a-efeito ativo">Perfil</a>
                 <a href="certificados.html" class="a-efeito">Certificados</a>
                 <a href="participantes.html" class="a-efeito">Participantes</a>
             </div>
             <div class="usuario-nav">
-                <i class="fas fa-user-graduate fa-2x"></i>
+                <i class="far fa-building fa-2x"></i>
                 <span style="margin: 2px 7px;">Olá</span>
                 <div class="dropdown">
                     <button class="dropbtn" id="nome_usuario"></button>
                     <div class="dropdown-content">
-                        <a onclick="Logout()" href="">Sair</a>
+                        <a onclick="Logout()" href="cadastro-login.html">Sair</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-perfil">
-        <!-- <div class="perfil-image">
-      <img src="images/perfil.svg" alt="">
-    </div> -->
+        <div class="apresentacao">
+            <h1>Perfil</h1>
+        </div>
         <div class="perfil">
             <form onsubmit="return ComfirmaEditarPerfil()">
                 <div class="title row">
@@ -79,15 +80,17 @@
                 <div class="form-group">
                     <input type="text" id="site" class="form-control" placeholder="Site" readonly>
                 </div>
+                <input type="checkbox" id="deletar">
             </form>
         </div>
-    </div>
-    <div class="footer">
 
     </div>
-    <div class="sub-footer">
-        <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+    <div class="footer" style="position: absolute; bottom: 0;">
+        <div class="sub-footer" >
+            <span>Copyright © 2020 CertiStack. Todos os Direitos reservados.</span>
+          </div>
     </div>
+
     <script src="CertiStack.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

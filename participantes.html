@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Inicial</title>
+  <link REL="SHORTCUT ICON" HREF="/favicon.ico">
+  <title>Participantes</title>
+  <link rel="shortcut icon" href="imagens/logo.png">
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
   <!-- BOOSTRAP -->
@@ -21,27 +23,30 @@
   <div class="container-large">
     <div class="nav">
       <div class="logo">
-        <!-- <img src="images/certistack-logo.jpg" width="60" height="50" class="d-inline-block align-top" alt=""> -->
+        <a href="home.html"><img src="imagens/logo_certistack2.png" style="position: relative; right: 28%; padding: 15px;" alt="error"></a>
       </div>
       <div class="itens">
         <a href="home.html" class="a-efeito">Home</a>
         <a href="perfil.html" class="a-efeito">Perfil</a>
         <a href="certificados.html" class="a-efeito">Certificados</a>
-        <a href="participantes.html" class="a-efeito">Participantes</a>
+        <a href="participantes.html" class="a-efeito ativo">Participantes</a>
       </div>
       <div class="usuario-nav">
-        <i class="fas fa-user-graduate fa-2x"></i>
+        <i class="far fa-building fa-2x"></i>
         <span style="margin: 2px 7px;">Olá</span>
         <div class="dropdown">
           <button class="dropbtn" id="nome_usuario"></button>
           <div class="dropdown-content">
-            <a onclick="Logout()" href="">Sair</a>
+            <a onclick="Logout()" href="cadastro-login.html">Sair</a>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="participantes">
+    <div class="apresentacao">
+      <h1>Cadastre seus Participantes</h1>
+    </div>
     <div class="cadastro-participantes">
       <form onsubmit="return CadastrarCliente()">
         <div class="title row">
@@ -53,28 +58,32 @@
         <div>
           &nbsp;
         </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="form-control" placeholder="Nome Completo" required>
+        <div class="form-row">
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Nome Completo" required>
+          </div>
+          <div class="form-group col">
+            <input id='cpf' type="text" name="cadastroParticipante" class="cpfParticipente form-control" placeholder="CPF"
+              onblur="ValidarCpf()" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="E-mail" required>
+          </div>
         </div>
-        <div class="form-group">
-          <input id='cpf' type="text" name="cadastroParticipante" class="cpfParticipente form-control" placeholder="CPF"
-            onblur="ValidarCpf()" required>
+        <div class="form-row ">
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="data-nasc form-control"
+              placeholder="Data de Nascimento" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="telefoneCliente form-control" placeholder="Telefone" required>
+          </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Universidade" required>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="form-control" placeholder="E-mail" required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="data-nasc form-control"
-            placeholder="Data de Nascimento" required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="telefoneCliente form-control" placeholder="Telefone" required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="form-control" placeholder="Universidade" required>
-        </div>
-        <div class="form-group">
-          <div class="form-group">
+        <div class="form-row">
+          <div class="form-group col">
             <select id="select" name="cadastroParticipante" class="form-control" required>
               <option value="">Área de conhecimento</option>
               <option value="Engenharias">Engenharias</option>
@@ -87,12 +96,16 @@
               <option value="Sociais Aplicadas">Ciências Sociais Aplicadas</option>
             </select>
           </div>
+          <div class="form-group col">
+            <input type="text" name="cadastroParticipante" class="form-control" placeholder="Lattes" required>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="text" name="cadastroParticipante" class="form-control" placeholder="Lattes" required>
-        </div>
-        <button type="submit" class="form-control" style="width: 100px; border-radius: px;">Cadastrar</button>
+         
+        <button type="submit" class="form-control" style="width: 150px;  background-color: #0AC5A8; color: #ffffff;">Cadastrar</button>
       </form>
+    </div>
+    <div class="apresentacao">
+      <h1>Tabela de Participantes</h1>
     </div>
     <div class="tabela-participantes">
       <table class="table table-dark">

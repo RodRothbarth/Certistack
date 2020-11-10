@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro/Login</title>
+    <title>Cadastro & Login</title>
+    <link rel="shortcut icon" href="imagens/logo.png">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- BOOSTRAP -->
@@ -15,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="images/logo.jpg" alt="">
+        <img src="imagens/logo_certistack2.png" alt="">
     </div>
     <div class="container-interativo">
         <div class="seta">
@@ -39,14 +40,13 @@
                 <h3 id="titulo_Login">ENTRAR</h3>
             </div>
             <div  class="cpf form-group">
-                <input onblur="ChamarCnpjLogin()" type="text" id="cnpj_login" name="login" placeholder="CNPJ" style="width: 300px" class="cnpj_login form-control" minlength="14" onblur="ChamarCnpj()">
+                <input onblur="ChamarCnpjLogin()" type="text" id="cnpj_login" name="login" placeholder="CNPJ" style="width: 350px" class="cnpj_login form-control" minlength="14" onblur="ChamarCnpj()">
             </div>
             <div class="senha form-group">
                 <input type="password" id="senha" name="login" placeholder="Senha" class="form-control" maxlength="16" minlength="6">
             </div>
             <div class="form-group">
-                <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="Validation()" style="width: 300px; background-color: #0AC5A8;">ENTRAR</button><br>
-                <a href="" style="color: #ffffff">Esqueceu sua Senha?</a>
+                <button type="button" class="form-control btn btn-dark" id="btnLogin" onclick="Validation()" style="width: 350px; background-color: #0AC5A8;">ENTRAR</button><br>
             </div>
     </div>
     </div>
@@ -55,43 +55,54 @@
             <h3 id="titulo_Form">CADASTRO</h3>
         </div>
         <form onsubmit="return CadastrarUser()"> 
-                <div class="form-group">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="">Nome:</label>
                     <input type="text" id="nome" name="cadastro" placeholder="Nome da Instituição" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="email" name="cadastro" placeholder="E-mail" class="form-control" required>
-                </div>
-            <div class="form-row">
                 <div class="form-group col">
-                    <input type="password" id="senha" name="cadastro" placeholder="Senha" class="form-control" onblur="ValidPass()" required>
-                </div>
-                <div class="form-group col">
-                    <input type="password" id="senha2" name="cadastro" placeholder="Confirme sua senha" class="form-control" onblur="ValidPass()" required>
+                    <label for="">Email:</label>
+                    <input type="email" id="email" name="cadastro" placeholder="E-mail" class="form-control" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <input type="text" id="celular" name="cadastro" placeholder="Número de telefone" class="numCelular form-control" required>
+                    <label for="">Senha:</label>
+                    <input type="password" id="senha" name="cadastro" placeholder="*********" class="form-control" onblur="ValidPass()" required>
                 </div>
                 <div class="form-group col">
-                    <input onblur="ChamarCnpj()" type="text" id="cnpj_cadastro" name="cadastro" placeholder="CNPJ" class="documento form-control" minlength="14" required>
+                    <label for="">Confirme sua senha:</label>
+                    <input type="password" id="senha2" name="cadastro" placeholder="*********" class="form-control" onblur="ValidPass()" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
+                    <label for="">Telefone:</label>
+                    <input type="text" id="celular" name="cadastro" placeholder="(00) 00000-0000" class="numCelular form-control" required>
+                </div>
+                <div class="form-group col">
+                    <label for="">CNPJ</label>
+                    <input onblur="ChamarCnpj()" type="text" id="cnpj_cadastro" name="cadastro" placeholder="00.000.000/0000-00" class="documento form-control" minlength="14" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="">Centro de Ensino</label>
                     <input type="text" id="centro-de-ensino" name="cadastro" placeholder="Centro de Ensino" class="form-control" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
+                    <label for="">Departamento</label>
                     <input type="text" id="departamento" name="cadastro" placeholder="Departamento" class="form-control" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
+                    <label for="">Tipo de Instituição:</label>
                     <!-- Mudar para select -->
                     <select id="select"  name="cadastro" class="form-control" required>
-                        <option value="">Tipo de Instituição</option>
+                        <option value="">-</option>
                         <option value="Universidade">Universidade</option>
                         <option value="Faculdade">Faculdade</option>
                         <option value="Centro Universitário">Centro Universitário</option>
@@ -100,6 +111,7 @@
                     </select>
                 </div>
                 <div class="form-group col">
+                    <label for="">Site da Instituição:</label>
                     <input type="text" id="site" name="cadastro" placeholder="Site" class="form-control" required>
                 </div>
             </div>

@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 function rollInfos(){
     window.scrollTo({
-        top: 700,
+        top: 860,
         behavior: "smooth"
     })
 }
@@ -139,7 +139,6 @@ function ChamarCnpj(){
     ValidarCNPJ(cnpj)
     if (ValidarCNPJ(cnpj) !== true){
         alert("CNPJ Invalido!")
-        alert(cnpj)
         cnpj = ""
     }
 }
@@ -152,7 +151,6 @@ function ChamarCnpjLogin(){
     ValidarCNPJ(cnpj)
     if (ValidarCNPJ(cnpj) !== true){
         alert("CNPJ Invalido!")
-        alert(cnpj)
         cnpj = ""
     }
 }
@@ -272,6 +270,9 @@ function ComfirmaEditarPerfil(){
                 dataBase[i].departamento = document.getElementById("nome_usuario").innerHTML;
                 localStorage.setItem('user', JSON.stringify(dataBase));
                 localStorage.setItem('online', JSON.stringify(dataBase[i])); 
+                if(document.getElementById('deletar').checked === true){
+                    DeletarUser();
+                };
             };
         };
     };
@@ -285,6 +286,22 @@ function ComfirmaEditarPerfil(){
     $("#salvar").hide();
     $("#editar").show();
     $("#confirma-senha").hide();
+};
+
+function DeletarUser(){
+    dataBase = JSON.parse(localStorage.getItem("user"))
+    let info = JSON.parse(localStorage.getItem("online"))
+    let url = 'cadastro-login.html';
+    for(let i = 0; i < dataBase.length; i++){
+        if(dataBase[i].documento === info.documento){
+            console.log("dasfd")
+            dataBase.splice(dataBase[i],1)
+            localStorage.setItem('user', JSON.stringify(dataBase)) 
+            localStorage.removeItem("online");
+            history.replaceState(null, '', url);
+            location.href = "cadastro-login.html";
+        };
+    };
 };
 
 function TestaCPF(strCPF) {
@@ -410,12 +427,12 @@ function EditarLinha(){ //abre a linha de edição para os certificados
     let horas = dataCerti[`${idLinha}`].horas
     let tipo = dataCerti[`${idLinha}`].tipo    
      
-    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${cpf}">`)
-    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${evento}">`)
-    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio" "type="text" value="${dataI}">`).mask('00/00/0000')
-    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim" type="text" value="${dataF}">`).mask('00/00/0000')
-    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='horas-${idLinha}' type="number" value="${horas}">`)
-    $(this).parents('tr').find(`td:eq(5)`).html(`<input id='tipo-${idLinha}' type="text" value="${tipo}">`)
+    $(this).parents('tr').find(`td:eq(0)`).html(`<input id='cpf-${idLinha}' type="text" value="${cpf}" >`);
+    $(this).parents('tr').find(`td:eq(1)`).html(`<input id='evento-${idLinha}' type="text" value="${evento}" >`);
+    $(this).parents('tr').find(`td:eq(2)`).html(`<input id='dataI-${idLinha}' class="dataCertInicio data-inicio" "type="text" value="${dataI}" >`).mask('00/00/0000');
+    $(this).parents('tr').find(`td:eq(3)`).html(`<input id='dataF-${idLinha}' class="dataCertFim data-fim" type="text" value="${dataF}" >`).mask('00/00/0000');
+    $(this).parents('tr').find(`td:eq(4)`).html(`<input id='horas-${idLinha}' type="number" value="${horas}" >`);
+    $(this).parents('tr').find(`td:eq(5)`).html(`<input id='tipo-${idLinha}' type="text" value="${tipo}" >`);
     
     editar.addClass('hidden')
     deletar.addClass('hidden')
@@ -689,6 +706,6 @@ function CancelaDelCliente(){
 function Logout(){ // botão para sair do perfil validado para troca de perfil ou saida "segura" do sistema. 
     localStorage.removeItem("online");
     let url = 'cadastro-login.html';
-    location.href="cadastro-login.html"; //ou window.open("home.html") para abrir em uma nova aba
-    history.pushState(null, null, url)
+    location.href = "cadastro-login.html"; //ou window.open("home.html") para abrir em uma nova aba
+    history.replaceState(null, '', url)
 };
